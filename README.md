@@ -57,6 +57,8 @@ The header links German (`/`) and English (`/en/`) versions. Each is fully rende
 - `scripts/build.py`: safely escaped static rendering.
 - `data/letterboxd.json`: committed source snapshot and growing review archive.
 
+The footer’s “since 2019” line and podcast structured-data publication date refer to **24 July 2019**, the release date of **#000 Die Namensfindung**, verified against the [official podcast RSS feed](https://anchor.fm/s/cbef5f8/podcast/rss).
+
 Podcast links currently open the existing show/archive. No new short audio episodes are invented or connected to reviews. Per-film audio can be added once those episodes exist.
 
 ## Search and accessibility

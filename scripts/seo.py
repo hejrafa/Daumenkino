@@ -71,6 +71,7 @@ def metadata(base, language, reviews, excerpt):
         *authors,
         {'@type': 'PodcastSeries', '@id': base + '#podcast-series', 'name': 'Daumenkino',
          'url': 'https://podcasts.apple.com/de/podcast/daumenkino/id1476457786',
+         'datePublished': '2019-07-24',
          'inLanguage': 'de', 'author': [{'@id': a['@id']} for a in authors],
          'description': 'Ein Film-Podcast von Ann-Sophie und Rafael.'},
         {'@type': 'CollectionPage', '@id': url + '#page', 'url': url, 'name': 'Daumenkino',

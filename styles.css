@@ -10,3 +10,5 @@
 @media(max-width:360px){.topbar nav{gap:10px}.topbar nav a{font-size:12px}.header-actions{gap:8px}}
 
 [hidden]{display:none!important}.language-toggle a{display:grid;place-items:center;min-height:40px;min-width:40px}.review-link .link-arrow,.feature .review-link .link-arrow{display:inline;font-size:22px}.pill-link>span[data-en]{font-size:inherit}.card-top .small-divider{padding:0 5px}h3:focus-visible{outline:2px solid var(--yellow);outline-offset:5px}.topbar{gap:16px}.topbar nav{flex-wrap:wrap}.filters button{min-height:44px}.review-link{min-width:44px;min-height:44px}.edition{gap:16px}.edition span{min-width:0}.credits span span{display:inline}main:focus,.reviews-section:focus{outline:none}
+
+.podcast-since{margin:12px 0 0;font-size:12px;line-height:1.5;color:var(--muted)}
