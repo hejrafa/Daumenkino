@@ -60,9 +60,6 @@ def build():
     html = html.replace('<!-- REVIEWS -->', '\n'.join(card(x, i) for i, x in enumerate(reviews)))
     html = html.replace('<!-- WATCHED -->', watched(entries, 'hejrafa', 'Rafael') + watched(entries, 'annso', 'Ann-Sophie'))
     html = html.replace('{{REVIEW_COUNT}}', str(len(reviews))).replace('{{YEAR}}', str(datetime.now().year))
-    oldest_sync = min((x['updated'] for x in data['feeds'].values()), default=data['updated'])
-    html = html.replace('{{UPDATED_ISO}}', datetime.fromisoformat(oldest_sync).date().isoformat())
-    html = html.replace('{{UPDATED}}', datetime.fromisoformat(oldest_sync).strftime('%d.%m.%Y'))
     out = ROOT / 'dist'
     if out.exists(): shutil.rmtree(out)
     out.mkdir()
