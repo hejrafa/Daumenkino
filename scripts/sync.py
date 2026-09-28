@@ -68,15 +68,40 @@ def parse_feed(xml, username):
     if not items: raise ValueError(f'No film entries in {username} feed')
     return items
 
+def backdrop_frames(images, primary):
+    """Select up to four distinct, text-free landscape stills after the cover."""
+    seen = {primary.rsplit('/', 1)[-1]}
+    frames = []
+    for image in images:
+        path = image.get('file_path', '')
+        if (not re.fullmatch(r'/[A-Za-z0-9_-]+\.(?:jpg|png|webp)', path)
+                or image.get('iso_639_1') is not None
+                or image.get('width', 0) < 780 or image.get('aspect_ratio', 0) < 1.3
+                or path[1:] in seen):
+            continue
+        seen.add(path[1:])
+        frames.append('https://image.tmdb.org/t/p/w1280' + path)
+        if len(frames) == 4: break
+    return frames
+
+
 def enrich(item, token):
-    if item.get('backdrop') and (not token or item.get('imageSource') == 'TMDB'): return item
+    if token and item['tmdbId']:
+        try:
+            endpoint = 'https://api.themoviedb.org/3/movie/' + item['tmdbId']
+            if item.get('imageSource') != 'TMDB' or not item.get('backdrop'):
+                movie = json.loads(request(endpoint, token))
+                if movie.get('backdrop_path'):
+                    item['backdrop'] = 'https://image.tmdb.org/t/p/w1280' + movie['backdrop_path']
+                    item['imageSource'] = 'TMDB'
+            # Presence also caches a successful empty response for films with no extra stills.
+            if 'backdrops' not in item:
+                images = json.loads(request(endpoint + '/images?include_image_language=null', token))
+                item['backdrops'] = backdrop_frames(images.get('backdrops', []), item.get('backdrop', ''))
+        except Exception as exc:
+            print(f"TMDB images unavailable for {item['title']}: {type(exc).__name__}; keeping saved images.")
+    if item.get('backdrop'): return item
     try:
-        if token and item['tmdbId']:
-            movie = json.loads(request('https://api.themoviedb.org/3/movie/' + item['tmdbId'], token))
-            if movie.get('backdrop_path'):
-                item['backdrop'] = 'https://image.tmdb.org/t/p/w1280' + movie['backdrop_path']
-                item['imageSource'] = 'TMDB'
-                return item
         # A public film-page fallback makes the draft useful before a TMDB token is supplied.
         match = re.search(r'/film/([^/]+)/', item['url'])
         if match:
@@ -101,6 +126,7 @@ def sync():
                 previous = records.get(item['id'], {})
                 item['backdrop'] = previous.get('backdrop', '')
                 item['imageSource'] = previous.get('imageSource', '')
+                if 'backdrops' in previous: item['backdrops'] = previous['backdrops']
                 records[item['id']] = item
             feeds[username] = {'updated': datetime.now(timezone.utc).isoformat()}
             print(f'{username}: {len(entries)} entries')
@@ -110,10 +136,8 @@ def sync():
     entries = sorted(records.values(), key=lambda x: (x['date'], x['published']), reverse=True)
     if any(not any(x['author'] == u for x in entries) for u in AUTHORS):
         raise RuntimeError('Initial sync requires data for both accounts.')
-    # Enrich a bounded set per author, retaining an archive as the RSS window rolls on.
-    selected = []
-    for username in AUTHORS:
-        selected.extend([x for x in entries if x['author'] == username and x['review']][:16])
+    # Enrich every published review; saved galleries avoid repeat API calls on later syncs.
+    selected = [x for x in entries if x['review']]
     token = os.getenv('TMDB_READ_TOKEN')
     with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
         list(pool.map(lambda item: enrich(item, token), selected))

@@ -16,6 +16,7 @@ Open http://localhost:4173. After editing `index.html`, `styles.css`, `app.js`, 
 
 ```sh
 python3 -m unittest discover -s tests -v
+node --test tests/flipbook.test.cjs # Optional locally; Node is available in GitHub Actions
 ```
 
 ## Publishing and automatic updates
@@ -29,6 +30,8 @@ The overview alternates between the two authors. Filters show each author's revi
 ## TMDB backdrops
 
 Add your **TMDB API Read Access Token** to repository Settings → Secrets and variables → Actions as `TMDB_READ_TOKEN`, then run the workflow. Do not paste the token into source files. The API resolves films by the TMDB ID in Letterboxd RSS, avoiding ambiguous title searches. Without the token, the site uses public Letterboxd film-page backdrops where available, then the RSS poster as a fallback. Images stay on their original CDNs. The cache avoids repeatedly fetching already resolved images. When a token is added, cached Letterboxd backdrops are automatically upgraded to TMDB where available.
+
+On mouse hover, review cards play one short flipbook sequence using up to four distinct, text-free TMDB backdrops, then restore the cover. Galleries are cached for all published reviews. Extra images download only on hover and are decoded before display; failed images are skipped. Leaving, hiding a card, switching tabs, or enabling reduced motion stops playback. Touch, reduced-motion, and data-saving users keep the static cover. Films without additional stills stay static. The review text stays in place throughout.
 
 TMDB documentation: https://developer.themoviedb.org/docs/getting-started and https://developer.themoviedb.org/docs/image-basics. Film images belong to their respective rights holders. Fonts are self-hosted with their SIL Open Font Licenses in `assets/fonts/`.
 
@@ -53,6 +56,7 @@ The header links German (`/`) and English (`/en/`) versions. Each is fully rende
 - `index.html`: German page copy, podcast and Instagram URLs, layout template.
 - `styles.css`: responsive visual design, self-hosted typography, reduced-motion behavior.
 - `app.js`: author filters, progressive review loading.
+- `flipbook.js`: on-demand hover previews with motion and loading safeguards.
 - `scripts/sync.py`: RSS import and image enrichment, server-side only.
 - `scripts/build.py`: safely escaped static rendering.
 - `data/letterboxd.json`: committed source snapshot and growing review archive.

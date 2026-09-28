@@ -22,6 +22,8 @@ jobs:
           python-version: '3.12'
       - name: Test feed parsing and rendering
         run: python -m unittest discover -s tests -v
+      - name: Test hover flipbook behavior
+        run: node --test tests/flipbook.test.cjs
       - name: Update reviews and recently watched
         env:
           TMDB_READ_TOKEN: ${{ secrets.TMDB_READ_TOKEN }}

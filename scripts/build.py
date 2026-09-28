@@ -22,12 +22,15 @@ def excerpt(text):
 def card(item, index):
     quote = 'Diese Review enthält Spoiler.' if item['spoiler'] else excerpt(item['review'])
     image = item.get('backdrop') or item['poster']
+    frames = [url for url in item.get('backdrops', [])
+              if re.fullmatch(r'https://image\.tmdb\.org/t/p/w1280/[A-Za-z0-9_-]+\.(?:jpg|png|webp)', url)][:4]
+    flipbook = f' data-flipbook="{esc(json.dumps(frames))}"' if frames else ''
     date = datetime.fromisoformat(item['date']).strftime('%d.%m.%Y') if item['date'] else ''
     quote_attrs = ' data-en="“This review contains spoilers.”" data-language-text lang="de"' if item['spoiler'] else ' lang="en"'
     rating_label = f"{item['rating']} von 5 Sternen" if item['rating'] is not None else 'Keine Bewertung'
     rating_en = f"{item['rating']} out of 5 stars" if item['rating'] is not None else 'Not rated'
     review_id = 'review-' + ''.join(c for c in item['id'] if c.isalnum() or c == '-')
-    return f'''<article class="review-card {'feature' if index == 0 else ''}" data-author="{esc(item['author'])}" id="{review_id}" aria-labelledby="{review_id}-title">
+    return f'''<article class="review-card {'feature' if index == 0 else ''}" data-author="{esc(item['author'])}"{flipbook} id="{review_id}" aria-labelledby="{review_id}-title">
       <img class="film-still" src="{esc(image)}" alt="" {'fetchpriority="high"' if index == 0 else 'loading="lazy"'} width="1280" height="720">
       <div class="card-shade"></div>
       <div class="card-top"><span><span data-en="{'IN FOCUS' if index == 0 else 'SHORT TAKE'}">{'IM FOKUS' if index == 0 else 'KURZKRITIK'}</span> <span class="small-divider">/</span> {esc(item['name'])}</span><span class="rating" role="img" aria-label="{rating_label}" data-en-aria-label="{rating_en}">{stars(item['rating'])}</span></div>
@@ -69,7 +72,7 @@ def build():
     (out / 'en').mkdir()
     (out / 'en/index.html').write_text(en.replace('<!-- SEARCH_METADATA -->', metadata(base, 'en', reviews, excerpt)))
     discovery_files(out, base)
-    for filename in ('styles.css', 'app.js'): shutil.copy(ROOT / filename, out / filename)
+    for filename in ('styles.css', 'app.js', 'flipbook.js'): shutil.copy(ROOT / filename, out / filename)
     shutil.copytree(ROOT / 'assets', out / 'assets')
     (out / '.nojekyll').touch()
     print(f'Built {len(reviews)} reviews and two watchlists into dist/')
