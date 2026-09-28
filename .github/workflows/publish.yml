@@ -26,7 +26,11 @@ jobs:
         env:
           TMDB_READ_TOKEN: ${{ secrets.TMDB_READ_TOKEN }}
         run: python scripts/sync.py
+      - uses: actions/configure-pages@v5
+        id: pages
       - name: Build site
+        env:
+          SITE_URL: ${{ steps.pages.outputs.base_url }}
         run: python scripts/build.py
       - name: Preserve feed archive
         run: |
@@ -38,7 +42,6 @@ jobs:
             git pull --rebase origin main
             git push
           fi
-      - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

@@ -46,7 +46,7 @@ No DNS settings are changed by this repository. For an Actions deployment, confi
 
 ## Languages
 
-The header has a DE / EN language toggle. Site copy, dates, metadata, and accessibility labels switch together. First visits follow the browser language (German for German-language browsers, English otherwise); an explicit choice is saved locally. Review quotes and film titles retain their original wording. Without JavaScript, the generated German page remains readable.
+The header links German (`/`) and English (`/en/`) versions. Each is fully rendered HTML with its own title, canonical URL, language, and accessibility labels, so links can be shared and crawled without JavaScript. Language comes from the URL; there are no automatic redirects. Review quotes and film titles retain their original wording. Both pages show all reviews without JavaScript. With JavaScript, author filters and progressive loading reduce page length.
 
 ## Content and layout
 
@@ -58,3 +58,11 @@ The header has a DE / EN language toggle. Site copy, dates, metadata, and access
 - `data/letterboxd.json`: committed source snapshot and growing review archive.
 
 Podcast links currently open the existing show/archive. No new short audio episodes are invented or connected to reviews. Per-film audio can be added once those episodes exist.
+
+## Search and accessibility
+
+The build writes reciprocal hreflang links, canonical URLs, robots.txt, sitemap.xml, and JSON-LD describing the website, podcast, authors, films, and actual review excerpts/ratings. Spoiler reviews are excluded from structured review text. Review anchor links reveal their card when opened. No invented ratings, keyword stuffing, or special AI ranking claims.
+
+`SITE_URL` sets the public base URL. The Pages workflow obtains it from `actions/configure-pages` before building, so a future custom domain configuration updates all canonical/discovery URLs. For a local build the default is the current GitHub Pages address. `robots.txt` at a project-path URL cannot control a host's root robots policy; it becomes authoritative once the site is served at the root of the custom domain. Submit the sitemap to Google Search Console and Bing Webmaster Tools after domain verification. Indexing and AI citations are controlled by those services.
+
+Accessibility includes semantic landmarks and review names, a skip link, localized star labels, new-tab descriptions, visible keyboard focus, live filter counts, reduced motion, and focusing the first newly revealed film heading. Decorative stills and symbols do not add screen-reader noise. Automated structure and keyboard checks are not a full assistive-technology or WCAG conformance audit.

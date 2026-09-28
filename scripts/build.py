@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 import re
 import shutil
+from seo import english_page, metadata, discovery_files, site_url
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -25,12 +26,13 @@ def card(item, index):
     quote_attrs = ' data-en="“This review contains spoilers.”" data-language-text lang="de"' if item['spoiler'] else ' lang="en"'
     rating_label = f"{item['rating']} von 5 Sternen" if item['rating'] is not None else 'Keine Bewertung'
     rating_en = f"{item['rating']} out of 5 stars" if item['rating'] is not None else 'Not rated'
-    return f'''<article class="review-card {'feature' if index == 0 else ''}" data-author="{esc(item['author'])}" {'hidden' if index > 4 else ''}>
+    review_id = 'review-' + ''.join(c for c in item['id'] if c.isalnum() or c == '-')
+    return f'''<article class="review-card {'feature' if index == 0 else ''}" data-author="{esc(item['author'])}" id="{review_id}" aria-labelledby="{review_id}-title">
       <img class="film-still" src="{esc(image)}" alt="" {'fetchpriority="high"' if index == 0 else 'loading="lazy"'} width="1280" height="720">
       <div class="card-shade"></div>
-      <div class="card-top"><span><span data-en="{'IN FOCUS' if index == 0 else 'SHORT TAKE'}">{'IM FOKUS' if index == 0 else 'KURZKRITIK'}</span> <span class="small-divider">/</span> {esc(item['name'])}</span><span class="rating" aria-label="{rating_label}" data-en-aria-label="{rating_en}">{stars(item['rating'])}</span></div>
+      <div class="card-top"><span><span data-en="{'IN FOCUS' if index == 0 else 'SHORT TAKE'}">{'IM FOKUS' if index == 0 else 'KURZKRITIK'}</span> <span class="small-divider">/</span> {esc(item['name'])}</span><span class="rating" role="img" aria-label="{rating_label}" data-en-aria-label="{rating_en}">{stars(item['rating'])}</span></div>
       <blockquote class="quote {'long-quote' if len(quote)>110 else ''}" {quote_attrs}>“{esc(quote)}”</blockquote>
-      <div class="card-bottom"><div><span class="film-year">{esc(item['year'])} <span>· <time data-date="{esc(item['date'])}">{date}</time></span></span><h3>{esc(item['title'])}</h3></div><a class="review-link" href="{esc(item['url'])}" target="_blank" rel="noopener noreferrer" aria-label="{esc(item['title'])}: Review von {esc(item['name'])} auf Letterboxd" data-en-aria-label="{esc(item['title'])}: review by {esc(item['name'])} on Letterboxd"><span>Letterboxd</span> ↗</a></div>
+      <div class="card-bottom"><div><span class="film-year">{esc(item['year'])} <span>· <time datetime="{esc(item['date'])}" data-date="{esc(item['date'])}">{date}</time></span></span><h3 id="{review_id}-title" tabindex="-1">{esc(item['title'])}</h3></div><a class="review-link" href="{esc(item['url'])}" target="_blank" aria-describedby="new-tab-note" rel="noopener noreferrer" aria-label="{esc(item['title'])}: Review von {esc(item['name'])} auf Letterboxd" data-en-aria-label="{esc(item['title'])}: review by {esc(item['name'])} on Letterboxd"><span>Letterboxd</span> <span class="link-arrow" aria-hidden="true">↗</span></a></div>
     </article>'''
 
 def watched(entries, username, name):
@@ -42,8 +44,8 @@ def watched(entries, username, name):
         if key in seen: continue
         seen.add(key); recent.append(item)
         if len(recent) == 4: break
-    posters = ''.join(f'''<a class="watched-film" data-en-aria-label="{esc(x['title'])}, {esc(x['name'])}, {str(x['rating']) + ' out of 5 stars' if x['rating'] is not None else 'not rated'}" href="{esc(x['url'])}" target="_blank" rel="noopener noreferrer" aria-label="{esc(x['title'])}, {esc(x['name'])}, {x['rating'] if x['rating'] is not None else 'keine Bewertung'} von 5 Sternen"><div class="poster-wrap"><img src="{esc(x['poster'])}" alt="{esc(x['title'])}" loading="lazy" width="300" height="450"></div><span class="poster-rating" aria-hidden="true">{stars(x['rating']) or '—'}</span></a>''' for x in recent)
-    return f'''<section class="watchlist"><div class="watchlist-heading"><h3>{name}</h3><a href="https://letterboxd.com/{username}/" target="_blank" rel="noopener noreferrer">@{username} ↗</a></div><div class="posters">{posters}</div></section>'''
+    posters = ''.join(f'''<a class="watched-film" data-en-aria-label="{esc(x['title'])}, {esc(x['name'])}, {str(x['rating']) + ' out of 5 stars' if x['rating'] is not None else 'not rated'}" href="{esc(x['url'])}" target="_blank" aria-describedby="new-tab-note" rel="noopener noreferrer" aria-label="{esc(x['title'])}, {esc(x['name'])}, {str(x['rating']) + ' von 5 Sternen' if x['rating'] is not None else 'keine Bewertung'}"><div class="poster-wrap"><img src="{esc(x['poster'])}" alt="{esc(x['title'])}" loading="lazy" width="300" height="450"></div><span class="poster-rating" aria-hidden="true">{stars(x['rating']) or '—'}</span></a>''' for x in recent)
+    return f'''<section class="watchlist"><div class="watchlist-heading"><h3>{name}</h3><a href="https://letterboxd.com/{username}/" target="_blank" aria-describedby="new-tab-note" rel="noopener noreferrer">@{username} ↗</a></div><div class="posters">{posters}</div></section>'''
 
 def build():
     data = json.loads((ROOT / 'data/letterboxd.json').read_text())
@@ -64,7 +66,12 @@ def build():
     out = ROOT / 'dist'
     if out.exists(): shutil.rmtree(out)
     out.mkdir()
-    (out / 'index.html').write_text(html)
+    base = site_url()
+    en = english_page(html)
+    (out / 'index.html').write_text(html.replace('<!-- SEARCH_METADATA -->', metadata(base, 'de', reviews, excerpt)))
+    (out / 'en').mkdir()
+    (out / 'en/index.html').write_text(en.replace('<!-- SEARCH_METADATA -->', metadata(base, 'en', reviews, excerpt)))
+    discovery_files(out, base)
     for filename in ('styles.css', 'app.js'): shutil.copy(ROOT / filename, out / filename)
     shutil.copytree(ROOT / 'assets', out / 'assets')
     (out / '.nojekyll').touch()
