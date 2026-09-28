@@ -22,12 +22,15 @@ def card(item, index):
     quote = 'Diese Review enthält Spoiler.' if item['spoiler'] else excerpt(item['review'])
     image = item.get('backdrop') or item['poster']
     date = datetime.fromisoformat(item['date']).strftime('%d.%m.%Y') if item['date'] else ''
+    quote_attrs = ' data-en="“This review contains spoilers.”" data-language-text lang="de"' if item['spoiler'] else ' lang="en"'
+    rating_label = f"{item['rating']} von 5 Sternen" if item['rating'] is not None else 'Keine Bewertung'
+    rating_en = f"{item['rating']} out of 5 stars" if item['rating'] is not None else 'Not rated'
     return f'''<article class="review-card {'feature' if index == 0 else ''}" data-author="{esc(item['author'])}" {'hidden' if index > 4 else ''}>
       <img class="film-still" src="{esc(image)}" alt="" {'fetchpriority="high"' if index == 0 else 'loading="lazy"'} width="1280" height="720">
       <div class="card-shade"></div>
-      <div class="card-top"><span>{'IM FOKUS' if index == 0 else 'KURZKRITIK'} <span class="small-divider">/</span> {esc(item['name'])}</span><span class="rating" aria-label="{item['rating'] or 0} von 5 Sternen">{stars(item['rating'])}</span></div>
-      <blockquote class="quote {'long-quote' if len(quote)>110 else ''}" lang="en">“{esc(quote)}”</blockquote>
-      <div class="card-bottom"><div><span class="film-year">{esc(item['year'])} <span>· {date}</span></span><h3>{esc(item['title'])}</h3></div><a class="review-link" href="{esc(item['url'])}" target="_blank" rel="noopener noreferrer" aria-label="{esc(item['title'])}: Review von {esc(item['name'])} auf Letterboxd"><span>Letterboxd</span> ↗</a></div>
+      <div class="card-top"><span><span data-en="{'IN FOCUS' if index == 0 else 'SHORT TAKE'}">{'IM FOKUS' if index == 0 else 'KURZKRITIK'}</span> <span class="small-divider">/</span> {esc(item['name'])}</span><span class="rating" aria-label="{rating_label}" data-en-aria-label="{rating_en}">{stars(item['rating'])}</span></div>
+      <blockquote class="quote {'long-quote' if len(quote)>110 else ''}" {quote_attrs}>“{esc(quote)}”</blockquote>
+      <div class="card-bottom"><div><span class="film-year">{esc(item['year'])} <span>· <time data-date="{esc(item['date'])}">{date}</time></span></span><h3>{esc(item['title'])}</h3></div><a class="review-link" href="{esc(item['url'])}" target="_blank" rel="noopener noreferrer" aria-label="{esc(item['title'])}: Review von {esc(item['name'])} auf Letterboxd" data-en-aria-label="{esc(item['title'])}: review by {esc(item['name'])} on Letterboxd"><span>Letterboxd</span> ↗</a></div>
     </article>'''
 
 def watched(entries, username, name):
@@ -39,7 +42,7 @@ def watched(entries, username, name):
         if key in seen: continue
         seen.add(key); recent.append(item)
         if len(recent) == 4: break
-    posters = ''.join(f'''<a class="watched-film" href="{esc(x['url'])}" target="_blank" rel="noopener noreferrer" aria-label="{esc(x['title'])}, {esc(x['name'])}, {x['rating'] if x['rating'] is not None else 'keine Bewertung'} von 5 Sternen"><div class="poster-wrap"><img src="{esc(x['poster'])}" alt="{esc(x['title'])}" loading="lazy" width="300" height="450"></div><span class="poster-rating" aria-hidden="true">{stars(x['rating']) or '—'}</span></a>''' for x in recent)
+    posters = ''.join(f'''<a class="watched-film" data-en-aria-label="{esc(x['title'])}, {esc(x['name'])}, {str(x['rating']) + ' out of 5 stars' if x['rating'] is not None else 'not rated'}" href="{esc(x['url'])}" target="_blank" rel="noopener noreferrer" aria-label="{esc(x['title'])}, {esc(x['name'])}, {x['rating'] if x['rating'] is not None else 'keine Bewertung'} von 5 Sternen"><div class="poster-wrap"><img src="{esc(x['poster'])}" alt="{esc(x['title'])}" loading="lazy" width="300" height="450"></div><span class="poster-rating" aria-hidden="true">{stars(x['rating']) or '—'}</span></a>''' for x in recent)
     return f'''<section class="watchlist"><div class="watchlist-heading"><h3>{name}</h3><a href="https://letterboxd.com/{username}/" target="_blank" rel="noopener noreferrer">@{username} ↗</a></div><div class="posters">{posters}</div></section>'''
 
 def build():
@@ -56,6 +59,7 @@ def build():
     html = html.replace('<!-- WATCHED -->', watched(entries, 'hejrafa', 'Rafael') + watched(entries, 'annso', 'Ann-Sophie'))
     html = html.replace('{{REVIEW_COUNT}}', str(len(reviews))).replace('{{YEAR}}', str(datetime.now().year))
     oldest_sync = min((x['updated'] for x in data['feeds'].values()), default=data['updated'])
+    html = html.replace('{{UPDATED_ISO}}', datetime.fromisoformat(oldest_sync).date().isoformat())
     html = html.replace('{{UPDATED}}', datetime.fromisoformat(oldest_sync).strftime('%d.%m.%Y'))
     out = ROOT / 'dist'
     if out.exists(): shutil.rmtree(out)

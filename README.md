@@ -44,6 +44,10 @@ The initial site uses https://hejrafa.github.io/Daumenkino/ so the draft stays a
 
 No DNS settings are changed by this repository. For an Actions deployment, configure the custom domain in Pages settings; GitHub does not require a deployed CNAME file.
 
+## Languages
+
+The header has a DE / EN language toggle. Site copy, dates, metadata, and accessibility labels switch together. First visits follow the browser language (German for German-language browsers, English otherwise); an explicit choice is saved locally. Review quotes and film titles retain their original wording. Without JavaScript, the generated German page remains readable.
+
 ## Content and layout
 
 - `index.html`: German page copy, podcast and Instagram URLs, layout template.
