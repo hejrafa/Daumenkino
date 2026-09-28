@@ -69,7 +69,7 @@ def parse_feed(xml, username):
     return items
 
 def enrich(item, token):
-    if item.get('backdrop'): return item
+    if item.get('backdrop') and (not token or item.get('imageSource') == 'TMDB'): return item
     try:
         if token and item['tmdbId']:
             movie = json.loads(request('https://api.themoviedb.org/3/movie/' + item['tmdbId'], token))
