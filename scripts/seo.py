@@ -10,6 +10,9 @@ DEFAULT_URL = 'https://hejrafa.github.io/Daumenkino/'
 
 def site_url():
     url = os.environ.get('SITE_URL', DEFAULT_URL).rstrip('/') + '/'
+    # Pages can report HTTP while its new-domain certificate is provisioning.
+    # Publish the eventual secure canonical address, never an HTTP duplicate.
+    if url.startswith('http://'): url = 'https://' + url[len('http://'):]
     parsed = urlsplit(url)
     if parsed.scheme != 'https' or not parsed.netloc or parsed.query or parsed.fragment:
         raise ValueError('SITE_URL must be an absolute HTTPS URL without query or fragment')

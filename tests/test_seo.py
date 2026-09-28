@@ -44,6 +44,8 @@ class SearchTests(unittest.TestCase):
     def test_discovery_uses_configured_origin_and_only_real_pages(self):
         with patch.dict('os.environ', {'SITE_URL': 'https://daumenkino.fm'}):
             self.assertEqual(site_url(), 'https://daumenkino.fm/')
+        with patch.dict('os.environ', {'SITE_URL': 'http://daumenkino.fm'}):
+            self.assertEqual(site_url(), 'https://daumenkino.fm/')
         with tempfile.TemporaryDirectory() as path:
             discovery_files(Path(path), 'https://daumenkino.fm/')
             xml = (Path(path) / 'sitemap.xml').read_text()
