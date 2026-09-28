@@ -1,11 +1,11 @@
 {
-  "updated": "2026-09-28T14:49:35.516852+00:00",
+  "updated": "2026-09-28T14:52:18.632787+00:00",
   "feeds": {
     "hejrafa": {
-      "updated": "2026-09-28T14:49:31.110668+00:00"
+      "updated": "2026-09-28T14:52:18.319570+00:00"
     },
     "annso": {
-      "updated": "2026-09-28T14:49:31.260166+00:00"
+      "updated": "2026-09-28T14:52:18.460078+00:00"
     }
   },
   "entries": [
@@ -580,8 +580,14 @@
       "spoiler": false,
       "poster": "https://a.ltrbxd.com/resized/film-poster/1/0/8/3/3/3/1/1083331-bad-apples-0-600-0-900-crop.jpg?v=9ca0220221",
       "tmdbId": "1198654",
-      "backdrop": "https://a.ltrbxd.com/resized/alternative-backdrop/1/0/8/3/3/3/1/tmdb/dNCK3daKbOi6IHSsM9O2Nwyd91Y-1200-1200-675-675-crop-000000.jpg?v=74eb9ec5a8",
-      "imageSource": "Letterboxd"
+      "backdrop": "https://image.tmdb.org/t/p/w1280/dNCK3daKbOi6IHSsM9O2Nwyd91Y.jpg",
+      "imageSource": "TMDB",
+      "backdrops": [
+        "https://image.tmdb.org/t/p/w1280/A5sGEzVMjvbgh5ZniaHBXAxppKQ.jpg",
+        "https://image.tmdb.org/t/p/w1280/vCON4BAZcBHc4CflkGr3NVo6DwW.jpg",
+        "https://image.tmdb.org/t/p/w1280/uPY2IWpkdTj0md7VLzlX171TbHo.jpg",
+        "https://image.tmdb.org/t/p/w1280/hk1P8NK3xQOq7e5S9Pw3PBvZuNn.jpg"
+      ]
     },
     {
       "id": "letterboxd-review-1453801446",
@@ -805,7 +811,13 @@
       "poster": "https://a.ltrbxd.com/resized/film-poster/8/7/2/8/7/1/872871-spider-man-brand-new-day-0-600-0-900-crop.jpg?v=ebe6beb4fc",
       "tmdbId": "969681",
       "backdrop": "https://image.tmdb.org/t/p/w1280/qeQJx07rK2xm8SD2sJxFKhE7gs0.jpg",
-      "imageSource": "TMDB"
+      "imageSource": "TMDB",
+      "backdrops": [
+        "https://image.tmdb.org/t/p/w1280/7iwUUcKURMT7aKfCwMy6YnGtchD.jpg",
+        "https://image.tmdb.org/t/p/w1280/vjMvFSmGUxEtqVdaZgvFee9XkZl.jpg",
+        "https://image.tmdb.org/t/p/w1280/bPW6HcI0E1eklEle61LVQuD1Cwc.jpg",
+        "https://image.tmdb.org/t/p/w1280/sYsaVy047cfGTLMfcRihee3ShnM.jpg"
+      ]
     },
     {
       "id": "letterboxd-review-1418139295",
