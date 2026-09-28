@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#171916">
+  <title>Daumenkino — Große Filme. Kurze Meinung.</title>
+  <meta name="description" content="Filme bleiben lang im Kopf. Unsere Reviews sind kurz. Daumenkino: Filmkritiken und ein Podcast von Ann-Sophie & Rafael.">
+  <meta property="og:title" content="Daumenkino — Große Filme. Kurze Meinung."><meta property="og:description" content="Kurze Filmkritiken von Ann-Sophie & Rafael. Zum Lesen, Hören und Darüberstreiten."><meta property="og:type" content="website">
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="./assets/fonts/barlow-bold.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="./styles.css"><script src="./app.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#reviews">Zu den Filmkritiken</a>
+<div class="site-shell">
+  <header class="topbar"><a class="mini-brand" href="#" aria-label="Daumenkino Startseite">d<span>k</span><span class="brand-dot">.</span></a><nav aria-label="Hauptnavigation"><a href="#reviews">Die Filme</a><a href="#podcast">Der Podcast</a><a href="#zuletzt">Wir schauen</a></nav><a class="instagram-link" href="https://www.instagram.com/daumenkino.fm/" target="_blank" rel="noopener noreferrer">Instagram <span>↗</span></a></header>
+  <main>
+    <section class="masthead" aria-labelledby="site-title">
+      <div class="edition"><span>FILME. GEFÜHLE. HALBWISSEN.</span><span>MIT ANN-SOPHIE & RAFAEL</span></div>
+      <div class="wordmark"><span class="wordmark-echo" aria-hidden="true">DAUMENKINO</span><h1 id="site-title">DAUMENKINO<span class="wordmark-star" aria-hidden="true">✳</span></h1></div>
+      <div class="intro-line"><p>Große Filme. <em>Kurze Meinung.</em></p><p>Ein Film. Ein, zwei Sätze.<br>Und manchmal sind wir uns sogar einig.</p><a href="#reviews" class="down-link" aria-label="Filmkritiken ansehen">↓</a></div>
+    </section>
+    <section class="reviews-section" id="reviews" aria-labelledby="reviews-title">
+      <div class="section-bar"><h2 id="reviews-title">ABSPANN AN. MEINUNG RAUS. <span class="count">{{REVIEW_COUNT}}</span></h2><div class="filters" role="group" aria-label="Filmkritiken nach Person filtern"><button type="button" data-filter="all" aria-pressed="true">Wir beide</button><button type="button" data-filter="hejrafa" aria-pressed="false">Rafael</button><button type="button" data-filter="annso" aria-pressed="false">Ann-Sophie</button></div></div>
+      <div class="review-grid"><!-- REVIEWS --></div>
+      <div class="more-row"><span>Kurze Gedanken. Lange Watchlist.</span><button id="load-more" type="button">Mehr Film, bitte <span>+</span></button><p class="sr-only" id="filter-status" role="status" aria-live="polite"></p></div>
+    </section>
+    <section class="podcast-section" id="podcast" aria-labelledby="podcast-title"><div class="podcast-label"><span class="audio-mark" aria-hidden="true">▂▅▃▇▅▂▆▃</span><span>DAUMENKINO FÜRS OHR</span></div><div class="podcast-content"><h2 id="podcast-title">WENIGER LABERN.<br><em>Mehr Kino.</em></h2><div class="podcast-copy"><p>Früher eine Stunde. Jetzt ein, zwei Minuten. Wir sind immer noch Ann-Sophie und Rafael. Und wir haben immer noch eine Meinung.</p><a class="pill-link" href="https://podcasts.apple.com/de/podcast/daumenkino/id1476457786" target="_blank" rel="noopener noreferrer">Zum Podcast <span>↗</span></a><a class="archive-link" href="https://creators.spotify.com/pod/profile/daumenkino" target="_blank" rel="noopener noreferrer">Alle bisherigen Folgen ↗</a></div></div></section>
+  </main>
+  <footer id="zuletzt"><div class="footer-heading"><div><span class="eyebrow">NACH DEM FILM IST VOR DEM FILM</span><h2>Zuletzt im Kopf.</h2></div><p>Unsere letzten vier auf Letterboxd.<br><span>Stand: {{UPDATED}}</span></p></div><div class="watchlists"><!-- WATCHED --></div><div class="footer-bottom"><a class="footer-wordmark" href="#">DAUMENKINO<span>↗</span></a><div class="footer-links"><a href="https://www.instagram.com/daumenkino.fm/" target="_blank" rel="noopener noreferrer">Instagram ↗</a><a href="https://podcasts.apple.com/de/podcast/daumenkino/id1476457786" target="_blank" rel="noopener noreferrer">Podcast ↗</a><span>© {{YEAR}} Ann-Sophie & Rafael</span></div></div><div class="credits"><span>Mit Liebe zum Kino. Und zur Meinungsverschiedenheit.</span><span>Reviews & Poster: <a href="https://letterboxd.com/">Letterboxd</a> · Filmdaten: <a href="https://www.themoviedb.org/">TMDB</a></span></div><p class="tmdb-notice">This product uses the TMDB API but is not endorsed or certified by TMDB.</p></footer>
+</div>
+</body>
+</html>
