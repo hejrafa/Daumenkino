@@ -1,14 +1,52 @@
 {
-  "updated": "2026-09-28T14:58:54.850388+00:00",
+  "updated": "2026-09-28T23:17:04.491874+00:00",
   "feeds": {
     "hejrafa": {
-      "updated": "2026-09-28T14:58:54.730446+00:00"
+      "updated": "2026-09-28T23:17:04.161822+00:00"
     },
     "annso": {
-      "updated": "2026-09-28T14:58:54.842498+00:00"
+      "updated": "2026-09-28T23:17:04.282837+00:00"
     }
   },
   "entries": [
+    {
+      "id": "letterboxd-review-1515287877",
+      "author": "hejrafa",
+      "name": "Rafael",
+      "title": "Travis Barker: Louder Than Fear",
+      "year": "2026",
+      "url": "https://letterboxd.com/hejrafa/film/travis-barker-louder-than-fear/",
+      "date": "2026-09-28",
+      "published": "2026-09-29T09:13:12+13:00",
+      "rating": null,
+      "review": "Have to practice my rudiments now. Travis is my favorite Kardashian, hands down.",
+      "spoiler": false,
+      "poster": "https://a.ltrbxd.com/resized/film-poster/1/5/5/7/6/5/4/1557654-travis-barker-louder-than-fear-0-600-0-900-crop.jpg?v=5102420574",
+      "tmdbId": "1695225",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/7SL4tcgbCo0BRsjbFwWuh3g1J7j.jpg",
+      "imageSource": "TMDB",
+      "backdrops": [
+        "https://image.tmdb.org/t/p/w1280/jjfLMwJaXRYwAih7YR8vcb32E8Y.jpg",
+        "https://image.tmdb.org/t/p/w1280/aSMrcknwoMW2UTfqeE1ZCOI0gdt.jpg"
+      ]
+    },
+    {
+      "id": "letterboxd-watch-1515029798",
+      "author": "hejrafa",
+      "name": "Rafael",
+      "title": "The Social Reckoning",
+      "year": "2026",
+      "url": "https://letterboxd.com/hejrafa/film/the-social-reckoning/",
+      "date": "2026-09-28",
+      "published": "2026-09-29T05:20:22+13:00",
+      "rating": null,
+      "review": "",
+      "spoiler": false,
+      "poster": "https://a.ltrbxd.com/resized/film-poster/1/1/6/4/6/6/9/1164669-the-social-reckoning-0-600-0-900-crop.jpg?v=e880229a7f",
+      "tmdbId": "1281331",
+      "backdrop": "",
+      "imageSource": ""
+    },
     {
       "id": "letterboxd-review-1513997639",
       "author": "hejrafa",
