@@ -24,7 +24,7 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: Test hover flipbook behavior
         run: node --test tests/flipbook.test.cjs
-      - name: Update reviews and recently watched
+      - name: Update reviews
         env:
           TMDB_READ_TOKEN: ${{ secrets.TMDB_READ_TOKEN }}
         run: python scripts/sync.py

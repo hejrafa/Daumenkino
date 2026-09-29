@@ -6,7 +6,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
-from seo import english_page, metadata, discovery_files, site_url
+from seo import english_page, metadata, discovery_files, site_url, review_language
 from build import card, excerpt
 from test_pipeline import FEED
 from sync import parse_feed
@@ -20,6 +20,19 @@ class SearchTests(unittest.TestCase):
         self.assertIn('href="../styles.css"', en)
         self.assertIn('href="./" data-language="en" aria-current="page"', en)
         self.assertIn('&lt;script&gt;Review&lt;/script&gt;', en)
+    def test_review_language_and_share_preview(self):
+        self.assertEqual(review_language('Das letzte Drittel zieht gut an, aber das erste ist zu lang.'), 'de')
+        self.assertEqual(review_language('Quite handy to have your own Benoit Blanc in your prison.'), 'en')
+        output = metadata('https://daumenkino.fm/', 'de', [], excerpt)
+        self.assertIn('property="og:image" content="https://daumenkino.fm/assets/og-de.png"', output)
+        self.assertIn('name="twitter:card" content="summary_large_image"', output)
+    def test_language_toggle_stays_on_the_same_page(self):
+        en = english_page('<a href="./impressum.html" data-language="de" data-page="impressum.html" aria-current="page">DE</a>')
+        self.assertIn('href="../impressum.html"', en)
+        self.assertNotIn('aria-current', en)
+    def test_english_images_use_working_paths_and_alt_text(self):
+        en = english_page('<img src="./assets/cover.jpg" alt="Cover von uns" data-en-alt="Our cover">')
+        self.assertIn('src="../assets/cover.jpg" alt="Our cover"', en)
     def test_structured_reviews_match_visible_excerpts_and_hide_spoilers(self):
         item = parse_feed(FEED, 'hejrafa')[0]
         hidden = {**item, 'spoiler': True, 'review': 'Secret ending'}

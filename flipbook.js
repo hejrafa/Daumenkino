@@ -1,8 +1,9 @@
-// A short, hard-cut flipbook: extra stills load only when a mouse enters a card.
+// A short, hard-cut flipbook: on mouse devices, extra stills preload as a card nears the screen.
 (() => {
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   const hover = matchMedia('(any-hover: hover)');
   const controllers = new Map();
+  const canPlay = () => !motion.matches && hover.matches && !navigator.connection?.saveData;
   const frameDuration = 650;
 
   document.querySelectorAll('[data-flipbook]').forEach(card => {
@@ -48,8 +49,7 @@
     }
 
     async function start(event) {
-      if (event.pointerType !== 'mouse' || motion.matches || !hover.matches
-          || document.hidden || card.hidden || navigator.connection?.saveData) return;
+      if (event.pointerType !== 'mouse' || !canPlay() || document.hidden || card.hidden) return;
       inside = true;
       stop();
       const current = generation;
@@ -67,25 +67,30 @@
         frames[index++].hidden = false;
         timer = setTimeout(flip, frameDuration);
       }
-      timer = setTimeout(flip, frameDuration);
+      flip(); // The first still appears the moment the mouse arrives.
     }
 
     card.addEventListener('pointerenter', start);
     card.addEventListener('pointerleave', () => { inside = false; stop(); });
     card.addEventListener('pointercancel', () => { inside = false; stop(); });
-    controllers.set(card, stop);
+    controllers.set(card, { stop, preload });
   });
 
-  const stopAll = () => controllers.forEach(stop => stop());
+  const stopAll = () => controllers.forEach(({ stop }) => stop());
   motion.addEventListener('change', stopAll);
   hover.addEventListener('change', stopAll);
   document.addEventListener('visibilitychange', stopAll);
   window.addEventListener('blur', stopAll);
+  // Preload stills shortly before a card scrolls into view, so hovering flips at once.
   // Stop when filtering hides a card, or scrolling takes it off screen.
   const visibility = new IntersectionObserver(entries => {
-    entries.forEach(entry => { if (!entry.isIntersecting) controllers.get(entry.target)(); });
-  });
-  controllers.forEach((stop, card) => {
+    entries.forEach(entry => {
+      const { stop, preload } = controllers.get(entry.target);
+      if (!entry.isIntersecting) stop();
+      else if (canPlay() && !entry.target.hidden) preload();
+    });
+  }, { rootMargin: '300px 0px' });
+  controllers.forEach(({ stop }, card) => {
     visibility.observe(card);
     new MutationObserver(() => { if (card.hidden) stop(); })
       .observe(card, { attributes: true, attributeFilter: ['hidden'] });

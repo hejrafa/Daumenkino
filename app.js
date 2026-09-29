@@ -47,13 +47,26 @@ render(false);
 revealLinkedReview();
 window.addEventListener('hashchange', revealLinkedReview);
 // Language links remain ordinary crawlable URLs, and retain the current section.
-document.querySelectorAll('[data-language]').forEach(link => link.addEventListener('click', () => {
+const languageLinks = [...document.querySelectorAll('[data-language]')];
+const markLanguage = language => languageLinks.forEach(link => {
+  if (link.dataset.language === language) link.setAttribute('aria-current', 'page');
+  else link.removeAttribute('aria-current');
+});
+languageLinks.forEach(link => link.addEventListener('click', event => {
   const destination = new URL(link.href);
   if (active !== 'all') destination.searchParams.set('author', active);
   if (limit > 5) destination.searchParams.set('count', String(limit));
   destination.hash = location.hash;
   link.href = destination.href;
+  // Slide the toggle to the new language first, then load that page.
+  const plainClick = event.button === 0 && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey;
+  if (!plainClick || link.hasAttribute('aria-current') || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  event.preventDefault();
+  markLanguage(link.dataset.language);
+  setTimeout(() => { location.href = destination.href; }, 300);
 }));
+// A page restored from the back/forward cache keeps the toggle on its own language.
+window.addEventListener('pageshow', () => markLanguage(document.documentElement.lang));
 document.querySelectorAll('time[data-date]').forEach(element => {
   if (!element.dataset.date) return;
   const date = new Date(`${element.dataset.date}T12:00:00Z`);
@@ -64,5 +77,19 @@ document.querySelectorAll('time[data-date]').forEach(element => {
   }).format(date);
 });
 document.querySelectorAll('img').forEach(img => img.addEventListener('error', () => {
-  if (img.classList.contains('film-still')) img.style.display = 'none';
+  if (img.classList.contains('film-still') || img.closest('.poster-wrap')) img.style.display = 'none';
 }));
+// Sections below the first screen fade up once they scroll into view.
+if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const reveal = new IntersectionObserver(entries => entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    entry.target.classList.add('is-visible');
+    reveal.unobserve(entry.target);
+  }), { rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll('.review-card, .more-row, .podcast-section, .footer-heading, .watchlist, .footer-bottom')
+    .forEach(element => {
+      if (element.getBoundingClientRect().top < innerHeight) return;
+      element.classList.add('reveal');
+      reveal.observe(element);
+    });
+}

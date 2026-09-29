@@ -25,13 +25,13 @@ The `Sync Letterboxd and publish` workflow runs on pushes to `main`, manually in
 
 GitHub Settings → Pages → Source must be **GitHub Actions**. No browser-side feed requests or CORS proxy are needed. The whole page is generated HTML, with small JavaScript enhancements for filtering and showing more reviews. If a feed temporarily fails, its saved content is retained. If no saved data exists for an account, the build fails rather than publishing a misleading empty page.
 
-The overview alternates between the two authors. Filters show each author's reviews in watched-date order. Cards use the first two sentences, with a 180-character cap, and link to the original full review. Original wording is preserved. Spoiler-marked reviews are not quoted. The footer uses the newest four distinct films with a diary watched date, including entries without reviews. RSS is a rolling recent-activity window, not the entire Letterboxd history; snapshots preserve previously fetched entries. Historical edits/deletions outside that window require updating the saved snapshot manually.
+The overview alternates between the two authors. Filters show each author's reviews in watched-date order. Cards use the first two sentences, with a 180-character cap, and link to the original full review. Original wording is preserved. Spoiler-marked reviews are not quoted. The footer shows each author's four favorite films from `data/favorites.json`, which is edited by hand (favorites rarely change and Letterboxd blocks automated profile requests). Each entry needs a title, year, TMDB id and TMDB poster URL; posters link to `letterboxd.com/tmdb/<id>/`, which redirects to the film page. If a poster is missing or fails to load, the title shows instead. RSS is a rolling recent-activity window, not the entire Letterboxd history; snapshots preserve previously fetched entries. Historical edits/deletions outside that window require updating the saved snapshot manually.
 
 ## TMDB backdrops
 
 Add your **TMDB API Read Access Token** to repository Settings → Secrets and variables → Actions as `TMDB_READ_TOKEN`, then run the workflow. Do not paste the token into source files. The API resolves films by the TMDB ID in Letterboxd RSS, avoiding ambiguous title searches. Without the token, the site uses public Letterboxd film-page backdrops where available, then the RSS poster as a fallback. Images stay on their original CDNs. The cache avoids repeatedly fetching already resolved images. When a token is added, cached Letterboxd backdrops are automatically upgraded to TMDB where available.
 
-On mouse hover, review cards play one short flipbook sequence using up to four distinct, text-free TMDB backdrops, then restore the cover. Galleries are cached for all published reviews. Extra images download only on hover and are decoded before display; failed images are skipped. Leaving, hiding a card, switching tabs, or enabling reduced motion stops playback. Touch, reduced-motion, and data-saving users keep the static cover. Films without additional stills stay static. The review text stays in place throughout.
+On mouse hover, review cards play one short flipbook sequence using up to four distinct, text-free TMDB backdrops, then restore the cover. Galleries are cached for all published reviews. On mouse devices, extra images preload shortly before a card scrolls into view and are decoded before display, so the first still appears as soon as the mouse enters; failed images are skipped. Leaving, hiding a card, switching tabs, or enabling reduced motion stops playback. Touch, reduced-motion, and data-saving users keep the static cover. Films without additional stills stay static. The review text stays in place throughout.
 
 TMDB documentation: https://developer.themoviedb.org/docs/getting-started and https://developer.themoviedb.org/docs/image-basics. Film images belong to their respective rights holders. Fonts are self-hosted with their SIL Open Font Licenses in `assets/fonts/`.
 
@@ -57,6 +57,8 @@ The header links German (`/`) and English (`/en/`) versions. Each is fully rende
 - `styles.css`: responsive visual design, self-hosted typography, reduced-motion behavior.
 - `app.js`: author filters, progressive review loading.
 - `flipbook.js`: on-demand hover previews with motion and loading safeguards.
+- `share.js`: renders a review card as a 1080×1920 story image in the browser (share sheet on phones, download on desktops).
+- CSS and JS links get a content-hash `?v=` at build time, so deploys never mix new HTML with cached old files.
 - `scripts/sync.py`: RSS import and image enrichment, server-side only.
 - `scripts/build.py`: safely escaped static rendering.
 - `data/letterboxd.json`: committed source snapshot and growing review archive.

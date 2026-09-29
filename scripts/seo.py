@@ -3,6 +3,7 @@ from html import escape
 from html.parser import HTMLParser
 import json
 import os
+import re
 from urllib.parse import urlsplit
 
 DEFAULT_URL = 'https://hejrafa.github.io/Daumenkino/'
@@ -30,16 +31,17 @@ class EnglishPage(HTMLParser):
         attrs = dict(attrs)
         translated = attrs.get('data-en')
         if tag == 'html' or 'data-language-text' in attrs: attrs['lang'] = 'en'
-        for field in ('aria-label', 'content'):
+        for field in ('aria-label', 'content', 'alt'):
             if 'data-en-' + field in attrs: attrs[field] = attrs['data-en-' + field]
         if 'data-language' in attrs:
             if attrs['data-language'] == 'en': attrs['aria-current'] = 'page'
             else: attrs.pop('aria-current', None)
-        if tag in ('link', 'script'):
+        if tag in ('link', 'script', 'img'):
             for key in ('href', 'src'):
                 if attrs.get(key, '').startswith('./'): attrs[key] = '../' + attrs[key][2:]
         if 'data-language' in attrs:
-            attrs['href'] = '../' if attrs['data-language'] == 'de' else './'
+            # data-page keeps the toggle on the same page (e.g. the legal page) in the other language.
+            attrs['href'] = ('../' if attrs['data-language'] == 'de' else './') + attrs.get('data-page', '')
         attributes = ''.join(' ' + k + (f'="{escape(v, quote=True)}"' if v is not None else '') for k, v in attrs.items())
         self.output.append(f'<{tag}{attributes}>')
         self.replace_text = translated is not None
@@ -60,6 +62,15 @@ def english_page(html):
     return ''.join(parser.output)
 
 
+GERMAN = set('der die das und ist nicht ich ein eine mit auf aber auch sich es zu den dem von wie noch nur war hat sehr'.split())
+ENGLISH = set('the and is not it a an with on but also of to was has very this that for my just'.split())
+
+def review_language(text):
+    """Reviews are usually English; a clear majority of German function words marks German."""
+    words = re.findall(r"[a-zäöüß]+", text.lower())
+    return 'de' if sum(w in GERMAN for w in words) > sum(w in ENGLISH for w in words) else 'en'
+
+
 def metadata(base, language, reviews, excerpt):
     url = base + ('en/' if language == 'en' else '')
     authors = [{ '@type': 'Person', '@id': base + '#' + handle, 'name': name,
@@ -71,9 +82,11 @@ def metadata(base, language, reviews, excerpt):
         *authors,
         {'@type': 'PodcastSeries', '@id': base + '#podcast-series', 'name': 'Daumenkino',
          'url': 'https://podcasts.apple.com/de/podcast/daumenkino/id1476457786',
+         'sameAs': ['https://open.spotify.com/show/0Wz3TC6p48i7DgnRLxKlNR'],
          'datePublished': '2019-07-24',
          'inLanguage': 'de', 'author': [{'@id': a['@id']} for a in authors],
-         'description': 'Ein Film-Podcast von Ann-Sophie und Rafael.'},
+         'description': 'Ein Filmpodcast von Ann-Sophie und Rafael.',
+         'image': base + 'assets/podcast-cover.jpg', 'webFeed': 'https://anchor.fm/s/cbef5f8/podcast/rss'},
         {'@type': 'CollectionPage', '@id': url + '#page', 'url': url, 'name': 'Daumenkino',
          'inLanguage': language, 'isPartOf': {'@id': base + '#website'},
          'about': {'@id': base + '#podcast-series'},
@@ -85,7 +98,8 @@ def metadata(base, language, reviews, excerpt):
         fragment = 'review-' + ''.join(c for c in item['id'] if c.isalnum() or c == '-')
         review = {'@type': 'Review', '@id': url + '#' + fragment, 'url': url + '#' + fragment,
                   'author': {'@id': base + '#' + item['author']},
-                  'reviewBody': excerpt(item['review']), 'isBasedOn': item['url'],
+                  'reviewBody': excerpt(item['review']), 'inLanguage': review_language(item['review']),
+                  'isBasedOn': item['url'],
                   'itemReviewed': {'@type': 'Movie', 'name': item['title']}}
         if item['tmdbId']:
             review['itemReviewed']['sameAs'] = 'https://www.themoviedb.org/movie/' + item['tmdbId']
@@ -104,6 +118,10 @@ def metadata(base, language, reviews, excerpt):
   <meta property="og:site_name" content="Daumenkino">
   <meta property="og:locale" content="{'en_GB' if language == 'en' else 'de_DE'}">
   <meta property="og:locale:alternate" content="{'de_DE' if language == 'en' else 'en_GB'}">
+  <meta property="og:image" content="{escape(base)}assets/og-{language}.png">
+  <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="{'Daumenkino* — Big films. Short takes.' if language == 'en' else 'Daumenkino* — Große Filme. Kurze Meinung.'}">
+  <meta name="twitter:card" content="summary_large_image">
   <script type="application/ld+json">{payload}</script>'''
 
 
