@@ -1,14 +1,37 @@
 {
-  "updated": "2026-09-29T12:54:25.793792+00:00",
+  "updated": "2026-09-29T22:15:58.722934+00:00",
   "feeds": {
     "hejrafa": {
-      "updated": "2026-09-29T12:54:25.507534+00:00"
+      "updated": "2026-09-29T22:15:58.329013+00:00"
     },
     "annso": {
-      "updated": "2026-09-29T12:54:25.736475+00:00"
+      "updated": "2026-09-29T22:15:58.505814+00:00"
     }
   },
   "entries": [
+    {
+      "id": "letterboxd-review-1516512027",
+      "author": "hejrafa",
+      "name": "Rafael",
+      "title": "A Talent for Murder",
+      "year": "2026",
+      "url": "https://letterboxd.com/hejrafa/film/a-talent-for-murder-2026/",
+      "date": "2026-09-29",
+      "published": "2026-09-30T08:24:49+13:00",
+      "rating": 3.5,
+      "review": "Never mention you got a trust fund on your first date.",
+      "spoiler": false,
+      "poster": "https://a.ltrbxd.com/resized/film-poster/9/7/7/6/0/2/977602-a-talent-for-murder-2026-0-600-0-900-crop.jpg?v=43addda2b4",
+      "tmdbId": "1084409",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/mfpjOQ6hsvMUIFyzWglwerbpgFS.jpg",
+      "imageSource": "TMDB",
+      "backdrops": [
+        "https://image.tmdb.org/t/p/w1280/4L3A8Utofrsg7fY7FGGG5aL2f61.jpg",
+        "https://image.tmdb.org/t/p/w1280/wMFrj1eyaA5TgYZQyvKwDfP3e3i.jpg",
+        "https://image.tmdb.org/t/p/w1280/iEU6qoekt9VqKeBfVKf6VoAfHby.jpg",
+        "https://image.tmdb.org/t/p/w1280/c7m6HkQkdL9prHxQ3Tp1peRViG9.jpg"
+      ]
+    },
     {
       "id": "letterboxd-review-1515287877",
       "author": "hejrafa",
