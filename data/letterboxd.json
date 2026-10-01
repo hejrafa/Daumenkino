@@ -1,14 +1,37 @@
 {
-  "updated": "2026-10-01T13:16:33.635484+00:00",
+  "updated": "2026-10-01T22:41:54.937175+00:00",
   "feeds": {
     "hejrafa": {
-      "updated": "2026-10-01T13:16:33.470308+00:00"
+      "updated": "2026-10-01T22:41:54.508330+00:00"
     },
     "annso": {
-      "updated": "2026-10-01T13:16:33.629330+00:00"
+      "updated": "2026-10-01T22:41:54.665786+00:00"
     }
   },
   "entries": [
+    {
+      "id": "letterboxd-review-1519219282",
+      "author": "hejrafa",
+      "name": "Rafael",
+      "title": "Wild Horse Nine",
+      "year": "2026",
+      "url": "https://letterboxd.com/hejrafa/film/wild-horse-nine/",
+      "date": "2026-10-01",
+      "published": "2026-10-02T10:54:08+13:00",
+      "rating": 4.0,
+      "review": "Just like they say, the ninth's one is the one to look out for. John Malkovich will have to fight Matt Damon for that Oscar.",
+      "spoiler": false,
+      "poster": "https://a.ltrbxd.com/resized/film-poster/8/0/2/6/3/2/802632-wild-horse-nine-0-600-0-900-crop.jpg?v=eade7a541c",
+      "tmdbId": "891621",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/b17UWf3LqHgKolQkXckne32qv0.jpg",
+      "imageSource": "TMDB",
+      "backdrops": [
+        "https://image.tmdb.org/t/p/w1280/3uLA0ujne91bkzFStZICCYeqhnt.jpg",
+        "https://image.tmdb.org/t/p/w1280/1bf7dbeoTLNFFwk35bmzvgB6knZ.jpg",
+        "https://image.tmdb.org/t/p/w1280/phYik8dKyN85d2iB2K3CphCsugL.jpg",
+        "https://image.tmdb.org/t/p/w1280/1SpBo9uZ68nMEKbOxEHTf1tIc6d.jpg"
+      ]
+    },
     {
       "id": "letterboxd-review-1518027770",
       "author": "hejrafa",
