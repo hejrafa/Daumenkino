@@ -1,7 +1,7 @@
 // Turns a review card into a 1080×1920 story image: shared on phones, downloaded on desktops.
 (() => {
   const W = 1080, H = 1920, SIDE = 90;
-  const ink = '#171916', paper = '#f5f3c5', yellow = '#f5f1a2', muted = '#a8aaa0';
+  const ink = '#171916', paper = '#f5f3c5', yellow = '#f5f1a2';
   const display = 'Barlow, Impact, "Arial Narrow", sans-serif', body = 'DM, Arial, sans-serif';
 
   function loadImage(src) {
@@ -29,11 +29,11 @@
   }
 
   function star(ctx, x, y, size) {
-    // The Daumenkino asterisk, same geometry as the wordmark SVG.
+    // The Daumenkino asterisk, same geometry and stroke as the footer wordmark SVG.
     const s = size / 32;
     ctx.save();
     ctx.translate(x, y); ctx.scale(s, s);
-    ctx.strokeStyle = paper; ctx.lineWidth = 3;
+    ctx.strokeStyle = paper; ctx.lineWidth = 4.5;
     ctx.beginPath();
     ctx.moveTo(16, 2); ctx.lineTo(16, 30); ctx.moveTo(2, 16); ctx.lineTo(30, 16);
     ctx.moveTo(6, 6); ctx.lineTo(26, 26); ctx.moveTo(6, 26); ctx.lineTo(26, 6);
@@ -62,31 +62,53 @@
     shade.addColorStop(1, 'rgba(6,10,8,.92)');
     ctx.fillStyle = shade; ctx.fillRect(0, 0, W, H);
 
-    // Header, below Instagram's profile bar.
+    // Same layout as the card on the site: reviewer and rating on top, quote centred,
+    // film at the bottom, with the wordmark where the card's buttons sit.
+    const TOP = 190, BOTTOM = 1750;
     ctx.textBaseline = 'alphabetic';
     ctx.fillStyle = paper;
-    ctx.font = `700 76px ${display}`; spacing(ctx, '-2px');
+    ctx.font = `400 34px ${body}`; spacing(ctx, '3px');
     ctx.textAlign = 'left';
-    ctx.fillText('DAUMENKINO', SIDE, 330);
-    star(ctx, SIDE + ctx.measureText('DAUMENKINO').width + 8, 272, 30);
-    ctx.font = `400 30px ${body}`; spacing(ctx, '3px');
-    ctx.textAlign = 'right';
-    const name = card.querySelector('.card-top > span').textContent.trim().toUpperCase();
-    ctx.fillText(name, W - SIDE, 322);
+    ctx.fillText(card.querySelector('.card-top > span').textContent.trim().toUpperCase(), SIDE, TOP);
+    const rating = card.querySelector('.rating').textContent.trim();
+    if (rating) { ctx.font = `44px ${body}`; spacing(ctx, '4px'); ctx.textAlign = 'right'; ctx.fillText(rating, W - SIDE, TOP + 4); }
 
-    // Quote: largest size that fits, with hanging quotation marks.
+    // Footer: wordmark bottom right, sharing the title's last baseline.
+    ctx.textAlign = 'left';
+    ctx.font = `700 60px ${display}`; spacing(ctx, '-1.5px');
+    const markWidth = ctx.measureText('DAUMENKINO').width, starSize = 24;
+    const markX = W - SIDE - starSize - 6 - markWidth;
+    ctx.fillText('DAUMENKINO', markX, BOTTOM);
+    star(ctx, markX + markWidth + 6, BOTTOM - 46, starSize);
+
+    ctx.font = `700 90px ${display}`; spacing(ctx, '0px');
+    const title = wrap(ctx, card.querySelector('h3').textContent.trim().toUpperCase(), markX - SIDE - 40).slice(0, 3);
+    const titleTop = BOTTOM - (title.length - 1) * 90;
+    title.forEach((line, i) => ctx.fillText(line, SIDE, titleTop + i * 90));
+    const year = card.querySelector('.film-year');
+    const date = year.querySelector('span')?.textContent.replace(/\s+/g, ' ').trim() || '';
+    const yearText = year.textContent.replace(/\s+/g, ' ').trim().replace(date, '').trim();
+    ctx.font = `400 34px ${body}`; spacing(ctx, '3px');
+    const dateY = titleTop - 96;
+    ctx.fillText(yearText, SIDE, dateY);
+    if (date) {
+      const x = SIDE + ctx.measureText(yearText + ' ').width;
+      ctx.globalAlpha = .7; spacing(ctx, '1.2px'); ctx.fillText(date, x, dateY); ctx.globalAlpha = 1;
+    }
+
+    // Quote: largest size that fits between header and footer, with hanging quotation marks.
     const quote = card.querySelector('.quote > span:not(.quote-mark)').textContent.trim().toUpperCase();
-    // The quote sits between the header (ends ~380) and the rating (starts ~1250).
-    let size = 132, lines;
+    const space = { top: TOP + 90, bottom: dateY - 34 - 90 };
+    let size = 140, lines;
     for (;;) {
       ctx.font = `700 ${size}px ${display}`; spacing(ctx, `${-size * .025}px`);
       lines = wrap(ctx, quote, W - SIDE * 2 - 40);
-      const fits = lines.length * size <= 760 && lines.every(l => ctx.measureText(l).width <= W - SIDE * 2 - 40);
+      const fits = lines.length * size <= space.bottom - space.top && lines.every(l => ctx.measureText(l).width <= W - SIDE * 2 - 40);
       if (fits || size <= 48) break;
       size -= 4;
     }
     const lineHeight = size;
-    const top = 815 - (lines.length * lineHeight) / 2 + lineHeight * .78;
+    const top = (space.top + space.bottom) / 2 - (lines.length * lineHeight) / 2 + lineHeight * .78;
     ctx.fillStyle = yellow; ctx.textAlign = 'center';
     lines.forEach((line, i) => ctx.fillText(line, W / 2, top + i * lineHeight));
     ctx.textAlign = 'right';
@@ -94,19 +116,6 @@
     ctx.textAlign = 'left';
     const last = lines[lines.length - 1];
     ctx.fillText('”', W / 2 + ctx.measureText(last).width / 2, top + (lines.length - 1) * lineHeight);
-
-    // Footer: rating, film, date and where to read more.
-    ctx.textAlign = 'left'; ctx.fillStyle = paper;
-    const rating = card.querySelector('.rating').textContent.trim();
-    if (rating) { ctx.font = `48px ${body}`; spacing(ctx, '4px'); ctx.fillText(rating, SIDE, 1310); }
-    ctx.font = `700 84px ${display}`; spacing(ctx, '0px');
-    const title = wrap(ctx, card.querySelector('h3').textContent.trim().toUpperCase(), W - SIDE * 2).slice(0, 2);
-    title.forEach((line, i) => ctx.fillText(line, SIDE, 1410 + i * 84));
-    ctx.font = `400 32px ${body}`; spacing(ctx, '1px');
-    const dateY = 1410 + title.length * 84 + 10;
-    ctx.fillText(card.querySelector('.film-year').textContent.replace(/\s+/g, ' ').trim(), SIDE, dateY);
-    ctx.fillStyle = muted; ctx.font = `400 30px ${body}`;
-    ctx.fillText('daumenkino.fm', SIDE, dateY + 60);
 
     return new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
   }
