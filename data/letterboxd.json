@@ -1,14 +1,37 @@
 {
-  "updated": "2026-10-03T16:19:23.101689+00:00",
+  "updated": "2026-10-03T21:14:59.129216+00:00",
   "feeds": {
     "hejrafa": {
-      "updated": "2026-10-03T16:19:22.956381+00:00"
+      "updated": "2026-10-03T21:14:58.751946+00:00"
     },
     "annso": {
-      "updated": "2026-10-03T16:19:23.072832+00:00"
+      "updated": "2026-10-03T21:14:58.931882+00:00"
     }
   },
   "entries": [
+    {
+      "id": "letterboxd-review-1521688113",
+      "author": "hejrafa",
+      "name": "Rafael",
+      "title": "Look Back",
+      "year": "2026",
+      "url": "https://letterboxd.com/hejrafa/film/look-back-2026/",
+      "date": "2026-10-03",
+      "published": "2026-10-04T05:45:50+13:00",
+      "rating": 5,
+      "review": "Life is strange.",
+      "spoiler": false,
+      "poster": "https://a.ltrbxd.com/resized/film-poster/1/4/6/1/4/3/9/1461439-look-back-2026-0-600-0-900-crop.jpg?v=6bc3925bb9",
+      "tmdbId": "1591675",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/ceOdqFmZy5kKImbGThuDHuifGpm.jpg",
+      "imageSource": "TMDB",
+      "backdrops": [
+        "https://image.tmdb.org/t/p/w1280/cRCxLK3Z7CQEJylvvwRySoU4fIR.jpg",
+        "https://image.tmdb.org/t/p/w1280/w03QykRglPOI1k2MgdUk6TrI5r6.jpg",
+        "https://image.tmdb.org/t/p/w1280/dop3BofIdrN94HzEEeWxhx8VQWM.jpg",
+        "https://image.tmdb.org/t/p/w1280/kAZv4PbSTIqzE4F6vVEvKA6UB1B.jpg"
+      ]
+    },
     {
       "id": "letterboxd-review-1520536058",
       "author": "hejrafa",
