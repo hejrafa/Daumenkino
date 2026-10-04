@@ -1,14 +1,37 @@
 {
-  "updated": "2026-10-03T21:14:59.129216+00:00",
+  "updated": "2026-10-04T05:54:21.757441+00:00",
   "feeds": {
     "hejrafa": {
-      "updated": "2026-10-03T21:14:58.751946+00:00"
+      "updated": "2026-10-04T05:54:21.092585+00:00"
     },
     "annso": {
-      "updated": "2026-10-03T21:14:58.931882+00:00"
+      "updated": "2026-10-04T05:54:21.272344+00:00"
     }
   },
   "entries": [
+    {
+      "id": "letterboxd-review-1522239309",
+      "author": "hejrafa",
+      "name": "Rafael",
+      "title": "LINKIN PARK: UNSHATTER",
+      "year": "2026",
+      "url": "https://letterboxd.com/hejrafa/film/linkin-park-unshatter/",
+      "date": "2026-10-03",
+      "published": "2026-10-04T11:30:57+13:00",
+      "rating": null,
+      "review": "Kintsugi.",
+      "spoiler": false,
+      "poster": "https://a.ltrbxd.com/resized/film-poster/1/2/7/3/6/4/6/1273646-linkin-park-unshatter-0-600-0-900-crop.jpg?v=c5b3ff7277",
+      "tmdbId": "1388805",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/uL1HCc4wmcFcSr1zS3kXX3CNUeE.jpg",
+      "imageSource": "TMDB",
+      "backdrops": [
+        "https://image.tmdb.org/t/p/w1280/sEpHqsxIhAo7Q7fNZ4G60RxUgrP.jpg",
+        "https://image.tmdb.org/t/p/w1280/3jpqWfDYKIQBjBNQmerwHLzWg2U.jpg",
+        "https://image.tmdb.org/t/p/w1280/q1gxy21PZw0sjQDPvPmOkIKcca3.jpg",
+        "https://image.tmdb.org/t/p/w1280/3SqpYDWjRg6BJj9bnSUgzs5lbfK.jpg"
+      ]
+    },
     {
       "id": "letterboxd-review-1521688113",
       "author": "hejrafa",
