@@ -1,14 +1,60 @@
 {
-  "updated": "2026-10-05T14:40:58.219772+00:00",
+  "updated": "2026-10-06T00:04:03.052049+00:00",
   "feeds": {
     "hejrafa": {
-      "updated": "2026-10-05T14:40:57.988483+00:00"
+      "updated": "2026-10-06T00:04:02.575965+00:00"
     },
     "annso": {
-      "updated": "2026-10-05T14:40:58.207567+00:00"
+      "updated": "2026-10-06T00:04:02.758564+00:00"
     }
   },
   "entries": [
+    {
+      "id": "letterboxd-review-1525403841",
+      "author": "hejrafa",
+      "name": "Rafael",
+      "title": "Sense and Sensibility",
+      "year": "2026",
+      "url": "https://letterboxd.com/hejrafa/film/sense-and-sensibility-2026/",
+      "date": "2026-10-05",
+      "published": "2026-10-06T10:06:48+13:00",
+      "rating": 3.5,
+      "review": "With a comma after “dearest”, did you intend this?",
+      "spoiler": false,
+      "poster": "https://a.ltrbxd.com/resized/film-poster/1/3/7/9/9/0/1/1379901-sense-and-sensibility-2026-0-600-0-900-crop.jpg?v=b5907f1c8c",
+      "tmdbId": "1503762",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/nkINWVL8x1KwdpO0dUbYhS3Y1iP.jpg",
+      "imageSource": "TMDB",
+      "backdrops": [
+        "https://image.tmdb.org/t/p/w1280/7wufnyNo5uhkosKXEp8iITX5ar3.jpg",
+        "https://image.tmdb.org/t/p/w1280/jzc5EP97QK8nbTjCeu1MixExYWT.jpg",
+        "https://image.tmdb.org/t/p/w1280/bXRoEdk3zmkS4LfKu9cRBGbvI6o.jpg",
+        "https://image.tmdb.org/t/p/w1280/oUcOngCWc6hFDmxufNBeIawkv9a.jpg"
+      ]
+    },
+    {
+      "id": "letterboxd-review-1525395811",
+      "author": "annso",
+      "name": "Ann-Sophie",
+      "title": "Sense and Sensibility",
+      "year": "2026",
+      "url": "https://letterboxd.com/annso/film/sense-and-sensibility-2026/",
+      "date": "2026-10-05",
+      "published": "2026-10-06T10:01:41+13:00",
+      "rating": 3.5,
+      "review": "They don’t write romcoms like that anymore",
+      "spoiler": false,
+      "poster": "https://a.ltrbxd.com/resized/film-poster/1/3/7/9/9/0/1/1379901-sense-and-sensibility-2026-0-600-0-900-crop.jpg?v=b5907f1c8c",
+      "tmdbId": "1503762",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/nkINWVL8x1KwdpO0dUbYhS3Y1iP.jpg",
+      "imageSource": "TMDB",
+      "backdrops": [
+        "https://image.tmdb.org/t/p/w1280/7wufnyNo5uhkosKXEp8iITX5ar3.jpg",
+        "https://image.tmdb.org/t/p/w1280/jzc5EP97QK8nbTjCeu1MixExYWT.jpg",
+        "https://image.tmdb.org/t/p/w1280/bXRoEdk3zmkS4LfKu9cRBGbvI6o.jpg",
+        "https://image.tmdb.org/t/p/w1280/oUcOngCWc6hFDmxufNBeIawkv9a.jpg"
+      ]
+    },
     {
       "id": "letterboxd-watch-1523651145",
       "author": "annso",
