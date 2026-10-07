@@ -1,11 +1,11 @@
 {
-  "updated": "2026-10-07T06:01:03.486848+00:00",
+  "updated": "2026-10-07T13:25:01.819648+00:00",
   "feeds": {
     "hejrafa": {
-      "updated": "2026-10-07T06:01:03.122027+00:00"
+      "updated": "2026-10-07T13:25:01.690973+00:00"
     },
     "annso": {
-      "updated": "2026-10-07T06:01:03.313285+00:00"
+      "updated": "2026-10-07T13:25:01.813396+00:00"
     }
   },
   "entries": [
@@ -784,8 +784,8 @@
       "author": "annso",
       "name": "Ann-Sophie",
       "title": "Bad Apples",
-      "year": "2026",
-      "url": "https://letterboxd.com/annso/film/bad-apples-2026-2/",
+      "year": "2025",
+      "url": "https://letterboxd.com/annso/film/bad-apples-2025/",
       "date": "2026-08-17",
       "published": "2026-08-19T01:22:34+12:00",
       "rating": 4.0,
@@ -807,8 +807,8 @@
       "author": "hejrafa",
       "name": "Rafael",
       "title": "Bad Apples",
-      "year": "2026",
-      "url": "https://letterboxd.com/hejrafa/film/bad-apples-2026-2/",
+      "year": "2025",
+      "url": "https://letterboxd.com/hejrafa/film/bad-apples-2025/",
       "date": "2026-08-17",
       "published": "2026-08-18T08:59:54+12:00",
       "rating": 3.0,
