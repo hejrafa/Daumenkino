@@ -1,11 +1,11 @@
 {
-  "updated": "2026-10-08T06:05:15.800689+00:00",
+  "updated": "2026-10-08T13:30:43.680738+00:00",
   "feeds": {
     "hejrafa": {
-      "updated": "2026-10-08T06:05:15.661549+00:00"
+      "updated": "2026-10-08T13:30:43.323019+00:00"
     },
     "annso": {
-      "updated": "2026-10-08T06:05:15.792436+00:00"
+      "updated": "2026-10-08T13:30:43.448995+00:00"
     }
   },
   "entries": [
@@ -205,6 +205,29 @@
         "https://image.tmdb.org/t/p/w1280/wMFrj1eyaA5TgYZQyvKwDfP3e3i.jpg",
         "https://image.tmdb.org/t/p/w1280/iEU6qoekt9VqKeBfVKf6VoAfHby.jpg",
         "https://image.tmdb.org/t/p/w1280/c7m6HkQkdL9prHxQ3Tp1peRViG9.jpg"
+      ]
+    },
+    {
+      "id": "letterboxd-review-1515029798",
+      "author": "hejrafa",
+      "name": "Rafael",
+      "title": "The Social Reckoning",
+      "year": "2026",
+      "url": "https://letterboxd.com/hejrafa/film/the-social-reckoning/",
+      "date": "2026-09-28",
+      "published": "2026-10-08T20:52:17+13:00",
+      "rating": 4.0,
+      "review": "Leadership not listening to their smart employees and continuing running the company into the ground is too real.",
+      "spoiler": false,
+      "poster": "https://a.ltrbxd.com/resized/film-poster/1/1/6/4/6/6/9/1164669-the-social-reckoning-0-600-0-900-crop.jpg?v=e880229a7f",
+      "tmdbId": "1281331",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/wXTaGcqX3jvdXSKCJAkl5jZyrKp.jpg",
+      "imageSource": "TMDB",
+      "backdrops": [
+        "https://image.tmdb.org/t/p/w1280/ycqTwRV7jUxjMospXxKTVS74nft.jpg",
+        "https://image.tmdb.org/t/p/w1280/mzLEPRpj6SX7rHSJn8parZQZLFl.jpg",
+        "https://image.tmdb.org/t/p/w1280/5QuKIWyZH6xrRRxqphRgrbC6dh0.jpg",
+        "https://image.tmdb.org/t/p/w1280/eK5zdbUlMNNswUlegkazcO8PAAZ.jpg"
       ]
     },
     {
