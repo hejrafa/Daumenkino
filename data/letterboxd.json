@@ -1,14 +1,37 @@
 {
-  "updated": "2026-10-10T21:45:05.744506+00:00",
+  "updated": "2026-10-11T05:47:55.938721+00:00",
   "feeds": {
     "hejrafa": {
-      "updated": "2026-10-10T21:45:05.579197+00:00"
+      "updated": "2026-10-11T05:47:55.546235+00:00"
     },
     "annso": {
-      "updated": "2026-10-10T21:45:05.736619+00:00"
+      "updated": "2026-10-11T05:47:55.707255+00:00"
     }
   },
   "entries": [
+    {
+      "id": "letterboxd-review-1532162809",
+      "author": "hejrafa",
+      "name": "Rafael",
+      "title": "Pan's Labyrinth",
+      "year": "2006",
+      "url": "https://letterboxd.com/hejrafa/film/pans-labyrinth/1/",
+      "date": "2026-10-10",
+      "published": "2026-10-11T11:41:06+13:00",
+      "rating": 4.0,
+      "review": "You know it's a fairytale when the Spanish villain is obsessed with time.",
+      "spoiler": false,
+      "poster": "https://a.ltrbxd.com/resized/film-poster/5/1/0/4/7/51047-pan-s-labyrinth-0-600-0-900-crop.jpg?v=79f89e7325",
+      "tmdbId": "1417",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/6G6nqSW9S7EHA9HrYl0Z8uo2H7f.jpg",
+      "imageSource": "TMDB",
+      "backdrops": [
+        "https://image.tmdb.org/t/p/w1280/o0IWa75BXyXryNDVqw0xoXZzy1J.jpg",
+        "https://image.tmdb.org/t/p/w1280/A0olyqHodbhmClULDd5zBJmfXxq.jpg",
+        "https://image.tmdb.org/t/p/w1280/5aSL5snrPUkOmMPFtblMNrihz1P.jpg",
+        "https://image.tmdb.org/t/p/w1280/rihCDynEMFSD4MbCkHVEVVV5amd.jpg"
+      ]
+    },
     {
       "id": "letterboxd-review-1525403841",
       "author": "hejrafa",
