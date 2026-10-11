@@ -1,14 +1,31 @@
 {
-  "updated": "2026-10-11T05:47:55.938721+00:00",
+  "updated": "2026-10-11T12:51:24.726670+00:00",
   "feeds": {
     "hejrafa": {
-      "updated": "2026-10-11T05:47:55.546235+00:00"
+      "updated": "2026-10-11T12:51:24.610068+00:00"
     },
     "annso": {
-      "updated": "2026-10-11T05:47:55.707255+00:00"
+      "updated": "2026-10-11T12:51:24.713936+00:00"
     }
   },
   "entries": [
+    {
+      "id": "letterboxd-watch-1532822419",
+      "author": "annso",
+      "name": "Ann-Sophie",
+      "title": "Pan's Labyrinth",
+      "year": "2006",
+      "url": "https://letterboxd.com/annso/film/pans-labyrinth/",
+      "date": "2026-10-10",
+      "published": "2026-10-11T20:57:47+13:00",
+      "rating": 4.5,
+      "review": "",
+      "spoiler": false,
+      "poster": "https://a.ltrbxd.com/resized/film-poster/5/1/0/4/7/51047-pan-s-labyrinth-0-600-0-900-crop.jpg?v=79f89e7325",
+      "tmdbId": "1417",
+      "backdrop": "",
+      "imageSource": ""
+    },
     {
       "id": "letterboxd-review-1532162809",
       "author": "hejrafa",
