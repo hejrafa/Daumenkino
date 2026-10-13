@@ -59,3 +59,5 @@
 @media(max-width:650px){.pill-extra{display:none}}
 /* How many films each list was chosen from. */
 .top20-watched{margin:16px 0 0;font-size:16px;line-height:1.45;color:var(--muted)}
+/* The masthead asterisk spins a full turn each time the pointer reaches it (turns counted by app.js). */
+.wordmark-star path{transform-box:fill-box;transform-origin:center;transform:rotate(calc(var(--turns,0) * 360deg));transition:transform 1s cubic-bezier(.2,.8,.2,1)}

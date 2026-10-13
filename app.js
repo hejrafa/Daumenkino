@@ -93,3 +93,7 @@ if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: re
       reveal.observe(element);
     });
 }
+// Each hover adds a turn, so the asterisk always spins forward instead of unwinding on leave.
+const wordmarkStar = document.querySelector('.wordmark-star');
+let starTurns = 0;
+wordmarkStar?.addEventListener('pointerenter', () => wordmarkStar.style.setProperty('--turns', ++starTurns));
