@@ -63,8 +63,6 @@ class Top20Tests(unittest.TestCase):
         x = {'year': 2026, 'url': 'https://letterboxd.com/hejrafa/list/top-20-movies-2026/', 'films': [film(i) for i in range(1, 21)]}
         year = top20_year(x, {'3': 'review-3'}, 2026)
         self.assertEqual(year.count('class="top20-film'), 20)
-        self.assertIn('läuft noch', year)
-        self.assertNotIn('läuft noch', top20_year(x, {}, 2027))
         teaser = top20_teaser(x, 2015, 2026)
         self.assertEqual(teaser.count('class="top20-film'), 5)
         self.assertIn('Alle Jahre seit 2015', teaser)
@@ -92,7 +90,7 @@ class Top20Tests(unittest.TestCase):
                 sync.enrich_top20('token')
             self.assertEqual(data.read_text(), before)
     def test_watch_counts_give_the_list_context(self):
-        self.assertIn('>161 Filme gesehen,</span> <span data-en="56 of them from 2025.">56 davon aus 2025.</span>',
+        self.assertIn('>161 Filme gesehen,</span> <span data-en="56 of them new releases.">56 davon Neuerscheinungen.</span>',
                       watched_line(2025, {'total': 161, 'fromYear': 56}, 2026))
         self.assertIn('data-en="So far 122 films watched,">Bisher 122 Filme gesehen,', watched_line(2026, {'total': 122, 'fromYear': 50}, 2026))
         self.assertEqual(watched_line(2014, None, 2026), '')

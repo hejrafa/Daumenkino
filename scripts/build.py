@@ -114,17 +114,16 @@ def watched_line(year, counts, current_year):
     total, new = int(counts['total']), int(counts['fromYear'])
     so_far = ('Bisher ', 'So far ') if year == current_year else ('', '')
     return (f'<p class="top20-watched"><span data-en="{so_far[1]}{total} films watched,">{so_far[0]}{total} Filme gesehen,</span> '
-            f'<span data-en="{new} of them from {year}.">{new} davon aus {year}.</span></p>')
+            f'<span data-en="{new} of them new releases.">{new} davon Neuerscheinungen.</span></p>')
 
 def top20_year(x, reviewed, current_year, counts=None):
     year = x['year']
-    status = ' <span class="year-status" data-en="in progress">läuft noch</span>' if year == current_year else ''
     films = ''.join(top20_film(film, reviewed.get(film['tmdbId'], '')) for film in x['films'])
     share = (f'<button class="top20-story top20-pill" type="button" hidden aria-label="Top 20 {year} als Bild teilen" data-en-aria-label="Share Top 20 {year} as an image">'
              '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 15V3M7 8l5-5 5 5M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>'
              '<span data-en="Share as image">Als Bild teilen</span></button>')
     return (f'<section class="top20-year" id="top-{year}" data-year="{year}" aria-labelledby="top-{year}-title"><div class="top20-year-heading">'
-            f'<div><h2 id="top-{year}-title">{year}{status}</h2>{watched_line(year, counts, current_year)}</div><div class="top20-year-actions">{share}<a class="top20-pill" href="{esc(x["url"])}" target="_blank" aria-describedby="new-tab-note" rel="noopener noreferrer" aria-label="Top 20 {year} auf Letterboxd" data-en-aria-label="Top 20 {year} on Letterboxd">'
+            f'<div><h2 id="top-{year}-title">{year}</h2>{watched_line(year, counts, current_year)}</div><div class="top20-year-actions">{share}<a class="top20-pill" href="{esc(x["url"])}" target="_blank" aria-describedby="new-tab-note" rel="noopener noreferrer" aria-label="Top 20 {year} auf Letterboxd" data-en-aria-label="Top 20 {year} on Letterboxd">'
             f'<span><span class="pill-extra" data-en="List on ">Liste auf </span>Letterboxd</span><span class="arrow" aria-hidden="true">↗</span></a></div></div>'
             f'<ol class="top20-list">{films}</ol></section>')
 
