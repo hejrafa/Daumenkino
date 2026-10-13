@@ -75,7 +75,7 @@ class Top20Tests(unittest.TestCase):
         self.assertIn('<img src="https://image.tmdb.org/t/p/w500/abc.jpg"', output)
         self.assertNotIn('data-poster', top20_film(film(2, tmdbPoster='https://evil.example/x.jpg')))
         x = {'year': 2026, 'url': 'https://letterboxd.com/hejrafa/list/top-20-movies-2026/', 'films': [film(1)]}
-        self.assertIn('class="share-list top20-pill" type="button" hidden', top20_year(x, {}, 2026))
+        self.assertIn('class="top20-story top20-pill" type="button" hidden', top20_year(x, {}, 2026))
         self.assertIn('data-year="2026"', top20_year(x, {}, 2026))
     def test_sync_looks_up_each_tmdb_poster_once(self):
         with tempfile.TemporaryDirectory() as path:

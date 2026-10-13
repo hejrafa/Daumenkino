@@ -217,7 +217,7 @@
     button.hidden = false;
     button.addEventListener('click', () => share(button, () => render(card), card.querySelector('h3').textContent.trim()));
   });
-  document.querySelectorAll('.share-list').forEach(button => {
+  document.querySelectorAll('.top20-story').forEach(button => {
     const section = button.closest('.top20-year');
     button.hidden = false;
     button.addEventListener('click', () => share(button, () => renderList(section), `top-20-${section.dataset.year}`));

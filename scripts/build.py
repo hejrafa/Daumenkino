@@ -112,7 +112,7 @@ def top20_year(x, reviewed, current_year):
     year = x['year']
     status = ' <span class="year-status" data-en="in progress">läuft noch</span>' if year == current_year else ''
     films = ''.join(top20_film(film, reviewed.get(film['tmdbId'], '')) for film in x['films'])
-    share = (f'<button class="share-list top20-pill" type="button" hidden aria-label="Top 20 {year} als Bild teilen" data-en-aria-label="Share Top 20 {year} as an image">'
+    share = (f'<button class="top20-story top20-pill" type="button" hidden aria-label="Top 20 {year} als Bild teilen" data-en-aria-label="Share Top 20 {year} as an image">'
              '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 15V3M7 8l5-5 5 5M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>'
              '<span data-en="Share as image">Als Bild teilen</span></button>')
     return (f'<section class="top20-year" id="top-{year}" data-year="{year}" aria-labelledby="top-{year}-title"><div class="top20-year-heading">'
