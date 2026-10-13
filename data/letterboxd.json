@@ -1,14 +1,37 @@
 {
-  "updated": "2026-10-12T15:26:59.790026+00:00",
+  "updated": "2026-10-13T00:40:46.068649+00:00",
   "feeds": {
     "hejrafa": {
-      "updated": "2026-10-12T15:26:59.466159+00:00"
+      "updated": "2026-10-13T00:40:45.491370+00:00"
     },
     "annso": {
-      "updated": "2026-10-12T15:26:59.771490+00:00"
+      "updated": "2026-10-13T00:40:45.711700+00:00"
     }
   },
   "entries": [
+    {
+      "id": "letterboxd-review-1535554713",
+      "author": "hejrafa",
+      "name": "Rafael",
+      "title": "The Weight",
+      "year": "2026",
+      "url": "https://letterboxd.com/hejrafa/film/the-weight-2026/",
+      "date": "2026-10-12",
+      "published": "2026-10-13T10:15:37+13:00",
+      "rating": 3.0,
+      "review": "I'd rather hike with a dog through the woods than humans.",
+      "spoiler": false,
+      "poster": "https://a.ltrbxd.com/resized/sm/upload/5c/wi/1f/au/weight-0-600-0-900-crop.jpg?v=558a8cef6a",
+      "tmdbId": "1433583",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/zLeq2fbHU6UdA7mhsYnIULORTgq.jpg",
+      "imageSource": "TMDB",
+      "backdrops": [
+        "https://image.tmdb.org/t/p/w1280/tD4qifPSyyhPCgZ0W4fNTcVDD2r.jpg",
+        "https://image.tmdb.org/t/p/w1280/tA22d0tUZsxrmQVC8DKrWTtZCNj.jpg",
+        "https://image.tmdb.org/t/p/w1280/wrrwqpIhabG1xaqWwakbgMpPgvu.jpg",
+        "https://image.tmdb.org/t/p/w1280/yWg8HW3n27JvgEd8SNVkwmQLoWL.jpg"
+      ]
+    },
     {
       "id": "letterboxd-watch-1534871636",
       "author": "hejrafa",
