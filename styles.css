@@ -58,3 +58,5 @@
 /* A year's actions: share the list as a story image (shown by share.js) and open it on Letterboxd. */
 .top20-year-actions{display:flex;align-items:center;flex-wrap:wrap;gap:8px}.top20-pill{display:inline-flex;align-items:center;gap:9px;min-height:44px;padding:0 17px;border:1px solid #6e705d;border-radius:22px;background:transparent;color:var(--paper);font-size:14px;white-space:nowrap}.top20-pill:hover{background:var(--paper);color:var(--ink);border-color:var(--paper)}.top20-story{padding-left:14px}.top20-story svg{width:18px;height:18px;flex:none}.top20-story[aria-busy=true]{opacity:.6;cursor:progress}
 @media(max-width:650px){.pill-extra{display:none}}
+/* How many films each list was chosen from. */
+.top20-watched{margin:16px 0 0;font-size:16px;line-height:1.45;color:var(--muted)}

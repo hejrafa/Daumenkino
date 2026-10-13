@@ -7,7 +7,7 @@ import unittest
 from unittest.mock import patch
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 from lists import parse_list, parse_film
-from build import card, top20_film, top20_ranks, top20_teaser, top20_year
+from build import card, top20_film, top20_ranks, top20_teaser, top20_year, watched_line
 from seo import list_metadata
 from test_pipeline import FEED
 from sync import parse_feed
@@ -91,6 +91,14 @@ class Top20Tests(unittest.TestCase):
             with patch.object(sync, 'TOP20', data), patch.object(sync, 'request', side_effect=AssertionError('no lookups')):
                 sync.enrich_top20('token')
             self.assertEqual(data.read_text(), before)
+    def test_watch_counts_give_the_list_context(self):
+        self.assertIn('>161 Filme gesehen,</span> <span data-en="56 of them from 2025.">56 davon aus 2025.</span>',
+                      watched_line(2025, {'total': 161, 'fromYear': 56}, 2026))
+        self.assertIn('data-en="So far 122 films watched,">Bisher 122 Filme gesehen,', watched_line(2026, {'total': 122, 'fromYear': 50}, 2026))
+        self.assertEqual(watched_line(2014, None, 2026), '')
+        x = {'year': 2025, 'url': 'https://letterboxd.com/hejrafa/list/top-20-movies-2025/', 'films': [film(1)]}
+        self.assertIn('class="top20-watched"', top20_year(x, {}, 2026, {'total': 161, 'fromYear': 56}))
+        self.assertNotIn('top20-watched', top20_year(x, {}, 2026))
     def test_structured_lists(self):
         lists = [{'year': 2026, 'url': 'https://letterboxd.com/hejrafa/list/top-20-movies-2026/', 'films': [film(1), film(2)]}]
         output = list_metadata('https://daumenkino.fm/', 'en', lists)
