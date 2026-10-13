@@ -65,3 +65,5 @@ class SearchTests(unittest.TestCase):
             self.assertEqual(xml.count('<url>'), 2)
             self.assertNotIn('github.io', xml)
             self.assertIn('https://daumenkino.fm/sitemap.xml', (Path(path) / 'robots.txt').read_text())
+            discovery_files(Path(path), 'https://daumenkino.fm/', ['', 'en/', 'top-20.html', 'en/top-20.html'])
+            self.assertIn('<loc>https://daumenkino.fm/en/top-20.html</loc>', (Path(path) / 'sitemap.xml').read_text())

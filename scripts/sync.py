@@ -12,6 +12,7 @@ import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / 'data/letterboxd.json'
+TOP20 = ROOT / 'data/top20.json'
 NS = {'lb': 'https://letterboxd.com', 'tmdb': 'https://themoviedb.org'}
 AUTHORS = {'hejrafa': 'Rafael', 'annso': 'Ann-Sophie'}
 
@@ -114,6 +115,26 @@ def enrich(item, token):
         print(f"Image unavailable for {item['title']}: {type(exc).__name__}; keeping poster.")
     return item
 
+def enrich_top20(token):
+    """Add TMDB posters to Rafael's Top 20 lists: unlike Letterboxd's, share images can draw them."""
+    if not token or not TOP20.exists(): return
+    data = json.loads(TOP20.read_text())
+    # Presence caches the result, so each film is looked up once (an empty value: no TMDB poster).
+    films = [f for x in data['lists'] for f in x['films'] if f.get('tmdbId') and 'tmdbPoster' not in f]
+    def poster(film):
+        try:
+            path = json.loads(request('https://api.themoviedb.org/3/movie/' + film['tmdbId'], token)).get('poster_path') or ''
+            film['tmdbPoster'] = 'https://image.tmdb.org/t/p/w500' + path if re.fullmatch(r'/[A-Za-z0-9_-]+\.(?:jpg|png|webp)', path) else ''
+        except Exception as exc:
+            print(f"TMDB poster unavailable for {film['title']}: {type(exc).__name__}; trying again next sync.")
+    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
+        list(pool.map(poster, films))
+    if not films: return
+    temp = TOP20.with_suffix('.tmp')
+    temp.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n')
+    temp.replace(TOP20)
+    print(f'Top 20: looked up {len(films)} TMDB posters')
+
 def sync():
     old = json.loads(DATA.read_text()) if DATA.exists() else {'entries': [], 'feeds': {}}
     records = {x['id']: x for x in old['entries']}
@@ -141,6 +162,7 @@ def sync():
     token = os.getenv('TMDB_READ_TOKEN')
     with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
         list(pool.map(lambda item: enrich(item, token), selected))
+    enrich_top20(token)
     payload = {'updated': datetime.now(timezone.utc).isoformat(), 'feeds': feeds, 'entries': entries}
     DATA.parent.mkdir(exist_ok=True)
     temp = DATA.with_suffix('.tmp')

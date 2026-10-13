@@ -27,6 +27,21 @@ GitHub Settings → Pages → Source must be **GitHub Actions**. No browser-side
 
 The overview alternates between the two authors. Filters show each author's reviews in watched-date order. Cards use the first two sentences, with a 180-character cap, and link to the original full review. Original wording is preserved. Spoiler-marked reviews are not quoted. The footer shows each author's four favorite films from `data/favorites.json`, which is edited by hand (favorites rarely change and Letterboxd blocks automated profile requests). Each entry needs a title, year, TMDB id and TMDB poster URL; posters link to `letterboxd.com/tmdb/<id>/`, which redirects to the film page. If a poster is missing or fails to load, the title shows instead. RSS is a rolling recent-activity window, not the entire Letterboxd history; snapshots preserve previously fetched entries. Historical edits/deletions outside that window require updating the saved snapshot manually.
 
+## Rafael's Top 20
+
+`top-20.html` (and `/en/top-20.html`) shows Rafael's yearly Top 20 lists from Letterboxd, one year at a time; without JavaScript every year is listed in full. The homepage shows the latest list's top five above the favorites, and Rafael's review cards get a rank badge (e.g. *#5 · Top 20 2026*) that links to that year. If a film is on more than one list, the most recent one wins. On the page, films Rafael has reviewed link to their review card.
+
+The lists live in `data/top20.json`, imported locally rather than in Actions, because Letterboxd tends to block automated requests from CI and the RSS feed only includes a list's first 10 films:
+
+```sh
+python3 scripts/lists.py          # every year since 2015
+python3 scripts/lists.py 2026     # only the current list, e.g. after changing it
+```
+
+The script reads each `letterboxd.com/hejrafa/list/top-20-movies-<year>/` page, then each new film's page for its TMDB id, poster and backdrop (films already saved are not fetched again). Commit the updated JSON to publish. Lists from 2015–2021 are not marked as ranked on Letterboxd; their order is used as the ranking.
+
+Each year has a **share as image** button that draws a 1080×1920 story image of all 20 posters with their ranks and Rafael’s star ratings in the browser (share sheet on phones, download on desktops). A canvas can only use images whose server allows it, which TMDB does and Letterboxd does not, so the scheduled sync adds a TMDB poster (`tmdbPoster`) to each list film once, using the `TMDB_READ_TOKEN` secret. The page then shows those posters too. Films without one yet appear in the image as a title tile.
+
 ## TMDB backdrops
 
 Add your **TMDB API Read Access Token** to repository Settings → Secrets and variables → Actions as `TMDB_READ_TOKEN`, then run the workflow. Do not paste the token into source files. The API resolves films by the TMDB ID in Letterboxd RSS, avoiding ambiguous title searches. Without the token, the site uses public Letterboxd film-page backdrops where available, then the RSS poster as a fallback. Images stay on their original CDNs. The cache avoids repeatedly fetching already resolved images. When a token is added, cached Letterboxd backdrops are automatically upgraded to TMDB where available.
@@ -57,11 +72,14 @@ The header links German (`/`) and English (`/en/`) versions. Each is fully rende
 - `styles.css`: responsive visual design, self-hosted typography, reduced-motion behavior.
 - `app.js`: author filters, progressive review loading.
 - `flipbook.js`: on-demand hover previews with motion and loading safeguards.
+- `top20.html`, `top20.js`: the Top 20 page template and its year switcher.
 - `share.js`: renders a review card as a 1080×1920 story image in the browser (share sheet on phones, download on desktops).
 - CSS and JS links get a content-hash `?v=` at build time, so deploys never mix new HTML with cached old files.
 - `scripts/sync.py`: RSS import and image enrichment, server-side only.
 - `scripts/build.py`: safely escaped static rendering.
+- `scripts/lists.py`: local Top 20 import from Letterboxd list pages.
 - `data/letterboxd.json`: committed source snapshot and growing review archive.
+- `data/top20.json`: Rafael's yearly Top 20 lists, updated by hand with `scripts/lists.py`.
 
 The footer’s “since 2019” line and podcast structured-data publication date refer to **24 July 2019**, the release date of **#000 Die Namensfindung**, verified against the [official podcast RSS feed](https://anchor.fm/s/cbef5f8/podcast/rss).
 

@@ -86,7 +86,7 @@ if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: re
     entry.target.classList.add('is-visible');
     reveal.unobserve(entry.target);
   }), { rootMargin: '0px 0px -8% 0px' });
-  document.querySelectorAll('.review-card, .more-row, .podcast-section, .footer-heading, .watchlist, .footer-bottom')
+  document.querySelectorAll('.review-card, .more-row, .podcast-section, .footer-heading, .top20-teaser .top20-list, .watchlist, .footer-bottom')
     .forEach(element => {
       if (element.getBoundingClientRect().top < innerHeight) return;
       element.classList.add('reveal');

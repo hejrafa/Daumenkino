@@ -120,12 +120,81 @@
     return new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
   }
 
-  async function share(button) {
-    const card = button.closest('.review-card');
+  function poster(ctx, image, title, x, y, w, h) {
+    ctx.save();
+    ctx.beginPath();
+    if (ctx.roundRect) ctx.roundRect(x, y, w, h, 8); else ctx.rect(x, y, w, h);
+    ctx.clip();
+    if (image) {
+      const scale = Math.max(w / image.naturalWidth, h / image.naturalHeight);
+      const iw = image.naturalWidth * scale, ih = image.naturalHeight * scale;
+      ctx.drawImage(image, x + (w - iw) / 2, y + (h - ih) / 2, iw, ih);
+    } else {
+      // Like the site's poster fallback: the title on a plain tile.
+      ctx.fillStyle = '#34382b'; ctx.fillRect(x, y, w, h);
+      ctx.fillStyle = yellow; ctx.textAlign = 'center';
+      ctx.font = `700 30px ${display}`; spacing(ctx, '0px');
+      const lines = wrap(ctx, title.toUpperCase(), w - 24).slice(0, 5);
+      lines.forEach((line, i) => ctx.fillText(line, x + w / 2, y + h / 2 - (lines.length - 1) * 15 + i * 30 + 10));
+    }
+    ctx.restore();
+  }
+
+  // A year of Rafael's Top 20 as a story image: all twenty posters, five across, ranked.
+  async function renderList(section) {
+    await Promise.all([document.fonts.load(`700 100px ${display}`), document.fonts.load(`400 30px ${body}`)]);
+    const canvas = document.createElement('canvas');
+    canvas.width = W; canvas.height = H;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = ink; ctx.fillRect(0, 0, W, H);
+    const films = [...section.querySelectorAll('.top20-film')].map(film => ({
+      rank: film.dataset.rank, title: film.querySelector('h3').textContent.trim(), poster: film.dataset.poster || '',
+      rating: film.querySelector('.rating')?.textContent.trim() || '',
+    }));
+    // Only TMDB serves images a canvas may read; the separate URL avoids the page's non-CORS cached copy.
+    const images = await Promise.all(films.map(film =>
+      /^https:\/\/image\.tmdb\.org\//.test(film.poster) ? loadImage(film.poster + '?share') : null));
+
+    const TOP = 190, SIDE = 60, COLS = 5, GAP = 18, LABEL = 50, ROW_GAP = 16;
+    const w = (W - SIDE * 2 - GAP * (COLS - 1)) / COLS, h = w * 1.5;
+    const rows = Math.ceil(films.length / COLS);
+    const gridTop = 1750 - (rows * (h + LABEL) + (rows - 1) * ROW_GAP);
+
+    ctx.textBaseline = 'alphabetic'; ctx.textAlign = 'left'; ctx.fillStyle = paper;
+    ctx.font = `400 34px ${body}`; spacing(ctx, '3px');
+    ctx.fillText(document.documentElement.lang === 'en' ? 'RAFAEL’S TOP 20' : 'RAFAELS TOP 20', SIDE, TOP);
+    ctx.font = `700 60px ${display}`; spacing(ctx, '-1.5px');
+    const markWidth = ctx.measureText('DAUMENKINO').width, starSize = 24;
+    const markX = W - SIDE - starSize - 6 - markWidth;
+    ctx.fillText('DAUMENKINO', markX, TOP + 6);
+    star(ctx, markX + markWidth + 6, TOP + 6 - 46, starSize);
+    ctx.fillStyle = yellow;
+    ctx.font = `700 230px ${display}`; spacing(ctx, '-6px');
+    ctx.fillText(section.dataset.year, SIDE - 8, gridTop - 40);
+
+    films.forEach((film, i) => {
+      const x = SIDE + (i % COLS) * (w + GAP), y = gridTop + Math.floor(i / COLS) * (h + LABEL + ROW_GAP);
+      poster(ctx, images[i], film.title, x, y, w, h);
+      ctx.fillStyle = yellow; ctx.textAlign = 'left';
+      ctx.font = `700 46px ${display}`; spacing(ctx, '-1px');
+      ctx.fillText(film.rank, x, y + h + 44);
+      if (film.rating) {
+        // Rafael's rating sits right-aligned beside the rank, shrinking if a wide rank leaves less room.
+        const room = w - ctx.measureText(film.rank).width - 12;
+        let size = 27;
+        ctx.fillStyle = paper; ctx.textAlign = 'right';
+        do { ctx.font = `${size}px ${body}`; spacing(ctx, `${size * .06}px`); } while (ctx.measureText(film.rating).width > room && --size > 16);
+        ctx.fillText(film.rating, x + w, y + h + 40);
+      }
+    });
+    return new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+  }
+
+  async function share(button, draw, name) {
     button.disabled = true; button.setAttribute('aria-busy', 'true');
     try {
-      const blob = await render(card);
-      const slug = card.querySelector('h3').textContent.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+      const blob = await draw();
+      const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
       const file = new File([blob], `daumenkino-${slug}.png`, { type: 'image/png' });
       // Phones get the share sheet (Instagram, Photos); desktops get a download.
       if (matchMedia('(pointer: coarse)').matches && navigator.canShare?.({ files: [file] })) {
@@ -142,8 +211,15 @@
     }
   }
 
+  // Buttons are only offered once the script can actually make the image.
   document.querySelectorAll('.share-card').forEach(button => {
-    button.hidden = false; // Only offered once the script can actually make the image.
-    button.addEventListener('click', () => share(button));
+    const card = button.closest('.review-card');
+    button.hidden = false;
+    button.addEventListener('click', () => share(button, () => render(card), card.querySelector('h3').textContent.trim()));
+  });
+  document.querySelectorAll('.share-list').forEach(button => {
+    const section = button.closest('.top20-year');
+    button.hidden = false;
+    button.addEventListener('click', () => share(button, () => renderList(section), `top-20-${section.dataset.year}`));
   });
 })();

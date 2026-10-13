@@ -108,11 +108,17 @@ def metadata(base, language, reviews, excerpt):
         if item['rating'] is not None:
             review['reviewRating'] = {'@type': 'Rating', 'ratingValue': item['rating'], 'bestRating': 5, 'worstRating': 0.5}
         item_list.append({'@type': 'ListItem', 'position': len(item_list)+1, 'item': review})
+    return head_tags(base, '', language, graph)
+
+
+def head_tags(base, page, language, graph):
+    """Canonical and language alternates for one page, plus its sharing preview and JSON-LD."""
+    url = base + ('en/' if language == 'en' else '') + page
     payload = json.dumps({'@context': 'https://schema.org', '@graph': graph}, ensure_ascii=False).replace('<', '\\u003c')
     return f'''<link rel="canonical" href="{escape(url)}">
-  <link rel="alternate" hreflang="de" href="{escape(base)}">
-  <link rel="alternate" hreflang="en" href="{escape(base)}en/">
-  <link rel="alternate" hreflang="x-default" href="{escape(base)}">
+  <link rel="alternate" hreflang="de" href="{escape(base + page)}">
+  <link rel="alternate" hreflang="en" href="{escape(base)}en/{escape(page)}">
+  <link rel="alternate" hreflang="x-default" href="{escape(base + page)}">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <meta property="og:url" content="{escape(url)}">
   <meta property="og:site_name" content="Daumenkino">
@@ -125,10 +131,32 @@ def metadata(base, language, reviews, excerpt):
   <script type="application/ld+json">{payload}</script>'''
 
 
-def discovery_files(out, base):
+def list_metadata(base, language, lists):
+    """Each yearly Top 20 as a ranked ItemList of films, authored by Rafael."""
+    url = base + ('en/' if language == 'en' else '') + 'top-20.html'
+    years = []
+    for x in lists:
+        films = []
+        for film in x['films']:
+            movie = {'@type': 'Movie', 'name': film['title'], 'url': 'https://letterboxd.com/film/' + film['slug'] + '/'}
+            if film['year']: movie['dateCreated'] = film['year']
+            if film['tmdbId']: movie['sameAs'] = 'https://www.themoviedb.org/movie/' + film['tmdbId']
+            if film['poster']: movie['image'] = film['poster']
+            films.append({'@type': 'ListItem', 'position': film['rank'], 'item': movie})
+        years.append({'@type': 'ItemList', '@id': url + '#top-' + str(x['year']), 'name': f'Top 20 {x["year"]}',
+                      'url': url + '#top-' + str(x['year']), 'sameAs': x['url'],
+                      'itemListOrder': 'https://schema.org/ItemListOrderAscending',
+                      'numberOfItems': len(films), 'itemListElement': films})
+    graph = [{'@type': 'CollectionPage', '@id': url + '#page', 'url': url,
+              'name': "Rafael's Top 20" if language == 'en' else 'Rafaels Top 20', 'inLanguage': language,
+              'isPartOf': {'@id': base + '#website'}, 'author': {'@id': base + '#hejrafa'}, 'hasPart': years}]
+    return head_tags(base, 'top-20.html', language, graph)
+
+
+def discovery_files(out, base, pages=('', 'en/')):
     (out / 'robots.txt').write_text('User-agent: *\nAllow: /\n\nSitemap: ' + base + 'sitemap.xml\n')
     # Only real, canonical pages; feed sync time is not a reliable content modification date.
     (out / 'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n'
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
-        + ''.join('<url><loc>' + escape(base + path) + '</loc></url>' for path in ('', 'en/'))
+        + ''.join('<url><loc>' + escape(base + path) + '</loc></url>' for path in pages)
         + '</urlset>\n')
