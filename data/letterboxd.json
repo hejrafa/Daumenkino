@@ -1,14 +1,54 @@
 {
-  "updated": "2026-10-15T04:40:29.152321+00:00",
+  "updated": "2026-10-15T11:30:15.518770+00:00",
   "feeds": {
     "hejrafa": {
-      "updated": "2026-10-15T04:40:28.140592+00:00"
+      "updated": "2026-10-15T11:30:15.165098+00:00"
     },
     "annso": {
-      "updated": "2026-10-15T04:40:29.149136+00:00"
+      "updated": "2026-10-15T11:30:15.330057+00:00"
     }
   },
   "entries": [
+    {
+      "id": "letterboxd-watch-1538904519",
+      "author": "annso",
+      "name": "Ann-Sophie",
+      "title": "Spider-Man: Brand New Day",
+      "year": "2026",
+      "url": "https://letterboxd.com/annso/film/spider-man-brand-new-day/",
+      "date": "2026-10-14",
+      "published": "2026-10-15T20:59:32+13:00",
+      "rating": 3.5,
+      "review": "",
+      "spoiler": false,
+      "poster": "https://a.ltrbxd.com/resized/film-poster/8/7/2/8/7/1/872871-spider-man-brand-new-day-0-600-0-900-crop.jpg?v=ebe6beb4fc",
+      "tmdbId": "969681",
+      "backdrop": "",
+      "imageSource": ""
+    },
+    {
+      "id": "letterboxd-review-1534871636",
+      "author": "hejrafa",
+      "name": "Rafael",
+      "title": "Street Fighter",
+      "year": "2026",
+      "url": "https://letterboxd.com/hejrafa/film/street-fighter-2026/",
+      "date": "2026-10-12",
+      "published": "2026-10-15T22:11:06+13:00",
+      "rating": 3.0,
+      "review": "Good old 90s action movie.",
+      "spoiler": false,
+      "poster": "https://a.ltrbxd.com/resized/film-poster/1/0/4/0/2/9/0/1040290-street-fighter-2026-0-600-0-900-crop.jpg?v=5cc9002644",
+      "tmdbId": "1153576",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/zDE9hd1SG9695YncbZGjSf7Z9Jk.jpg",
+      "imageSource": "TMDB",
+      "backdrops": [
+        "https://image.tmdb.org/t/p/w1280/k0cEoowzTwxYCTRI7gV6nqPF1ds.jpg",
+        "https://image.tmdb.org/t/p/w1280/bA6twMcGZtV2cQRQA3ZTMQPJznU.jpg",
+        "https://image.tmdb.org/t/p/w1280/zlZA2IMP9FthpYTA1CC9Gj7vl1o.jpg",
+        "https://image.tmdb.org/t/p/w1280/5H5YphHsQmkQhrw13Wv1whCZKtN.jpg"
+      ]
+    },
     {
       "id": "letterboxd-review-1536913519",
       "author": "annso",
