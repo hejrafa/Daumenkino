@@ -1,14 +1,31 @@
 {
-  "updated": "2026-10-20T04:51:47.442028+00:00",
+  "updated": "2026-10-20T11:37:59.322394+00:00",
   "feeds": {
     "hejrafa": {
-      "updated": "2026-10-20T04:51:47.325637+00:00"
+      "updated": "2026-10-20T11:37:59.200327+00:00"
     },
     "annso": {
-      "updated": "2026-10-20T04:51:47.437136+00:00"
+      "updated": "2026-10-20T11:37:59.318765+00:00"
     }
   },
   "entries": [
+    {
+      "id": "letterboxd-watch-1546636433",
+      "author": "hejrafa",
+      "name": "Rafael",
+      "title": "Clayface",
+      "year": "2026",
+      "url": "https://letterboxd.com/hejrafa/film/clayface/",
+      "date": "2026-10-20",
+      "published": "2026-10-20T23:11:35+13:00",
+      "rating": null,
+      "review": "",
+      "spoiler": false,
+      "poster": "https://a.ltrbxd.com/resized/film-poster/1/2/8/4/6/3/6/1284636-clayface-0-600-0-900-crop.jpg?v=eb305849d5",
+      "tmdbId": "1400940",
+      "backdrop": "",
+      "imageSource": ""
+    },
     {
       "id": "letterboxd-watch-1540836658",
       "author": "annso",
