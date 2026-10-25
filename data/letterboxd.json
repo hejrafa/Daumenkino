@@ -1,14 +1,48 @@
 {
-  "updated": "2026-10-24T20:50:35.421239+00:00",
+  "updated": "2026-10-25T04:42:26.661027+00:00",
   "feeds": {
     "hejrafa": {
-      "updated": "2026-10-24T20:50:35.224375+00:00"
+      "updated": "2026-10-25T04:42:26.496489+00:00"
     },
     "annso": {
-      "updated": "2026-10-24T20:50:35.416507+00:00"
+      "updated": "2026-10-25T04:42:26.656908+00:00"
     }
   },
   "entries": [
+    {
+      "id": "letterboxd-watch-1552734923",
+      "author": "hejrafa",
+      "name": "Rafael",
+      "title": "Hamilton",
+      "year": "2020",
+      "url": "https://letterboxd.com/hejrafa/film/hamilton-2020/13/",
+      "date": "2026-10-24",
+      "published": "2026-10-25T10:11:33+13:00",
+      "rating": 5,
+      "review": "",
+      "spoiler": false,
+      "poster": "https://a.ltrbxd.com/resized/film-poster/4/8/5/3/0/9/485309-hamilton-0-600-0-900-crop.jpg?v=6430888d58",
+      "tmdbId": "556574",
+      "backdrop": "",
+      "imageSource": ""
+    },
+    {
+      "id": "letterboxd-watch-1552966606",
+      "author": "annso",
+      "name": "Ann-Sophie",
+      "title": "Hamilton",
+      "year": "2020",
+      "url": "https://letterboxd.com/annso/film/hamilton-2020/1/",
+      "date": "2026-10-23",
+      "published": "2026-10-25T12:17:13+13:00",
+      "rating": 5,
+      "review": "",
+      "spoiler": false,
+      "poster": "https://a.ltrbxd.com/resized/film-poster/4/8/5/3/0/9/485309-hamilton-0-600-0-900-crop.jpg?v=6430888d58",
+      "tmdbId": "556574",
+      "backdrop": "",
+      "imageSource": ""
+    },
     {
       "id": "letterboxd-review-1546636433",
       "author": "hejrafa",
