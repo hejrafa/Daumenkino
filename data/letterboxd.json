@@ -1,14 +1,37 @@
 {
-  "updated": "2026-10-26T13:04:24.811044+00:00",
+  "updated": "2026-10-26T22:40:49.137620+00:00",
   "feeds": {
     "hejrafa": {
-      "updated": "2026-10-26T13:04:24.604197+00:00"
+      "updated": "2026-10-26T22:40:48.727562+00:00"
     },
     "annso": {
-      "updated": "2026-10-26T13:04:24.807038+00:00"
+      "updated": "2026-10-26T22:40:48.878330+00:00"
     }
   },
   "entries": [
+    {
+      "id": "letterboxd-review-1556228489",
+      "author": "hejrafa",
+      "name": "Rafael",
+      "title": "Klara and the Sun",
+      "year": "2026",
+      "url": "https://letterboxd.com/hejrafa/film/klara-and-the-sun/",
+      "date": "2026-10-26",
+      "published": "2026-10-27T11:06:50+13:00",
+      "rating": 3.0,
+      "review": "This reminds me to watch After Yang again.",
+      "spoiler": false,
+      "poster": "https://a.ltrbxd.com/resized/film-poster/7/7/2/2/4/2/772242-klara-and-the-sun-0-600-0-900-crop.jpg?v=96606d0ee5",
+      "tmdbId": "858035",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/s4E7NDJCOG3wqc5psv2RLr9QfUm.jpg",
+      "imageSource": "TMDB",
+      "backdrops": [
+        "https://image.tmdb.org/t/p/w1280/qz27VqOrAIksMLbFudvrX1lhTWU.jpg",
+        "https://image.tmdb.org/t/p/w1280/gtcCBBYEaskctLhCK2lEdN4weE.jpg",
+        "https://image.tmdb.org/t/p/w1280/z6zBB40CE1FlZKvZ3jdFK1TybnQ.jpg",
+        "https://image.tmdb.org/t/p/w1280/1ZwcLnQMFvoAEbnGOsXJplgic6.jpg"
+      ]
+    },
     {
       "id": "letterboxd-watch-1552734923",
       "author": "hejrafa",
