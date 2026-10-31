@@ -1,14 +1,37 @@
 {
-  "updated": "2026-10-31T12:30:43.932787+00:00",
+  "updated": "2026-10-31T21:35:34.766259+00:00",
   "feeds": {
     "hejrafa": {
-      "updated": "2026-10-31T12:30:39.422996+00:00"
+      "updated": "2026-10-31T21:35:34.409815+00:00"
     },
     "annso": {
-      "updated": "2026-10-31T12:30:43.929912+00:00"
+      "updated": "2026-10-31T21:35:34.579405+00:00"
     }
   },
   "entries": [
+    {
+      "id": "letterboxd-review-1565928543",
+      "author": "hejrafa",
+      "name": "Rafael",
+      "title": "Battle Royale",
+      "year": "2000",
+      "url": "https://letterboxd.com/hejrafa/film/battle-royale/",
+      "date": "2026-10-31",
+      "published": "2026-11-01T09:58:13+13:00",
+      "rating": 3.0,
+      "review": "How is this not a Rom-Com? Shit was funny.",
+      "spoiler": false,
+      "poster": "https://a.ltrbxd.com/resized/film-poster/4/9/8/1/0/49810-battle-royale-0-600-0-900-crop.jpg?v=a625ba98ef",
+      "tmdbId": "3176",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/gtYmm8HeM6CneomZ98flixAGsBe.jpg",
+      "imageSource": "TMDB",
+      "backdrops": [
+        "https://image.tmdb.org/t/p/w1280/amBvmIshdsSkOtvVIgxl7YSQ9Dg.jpg",
+        "https://image.tmdb.org/t/p/w1280/yGxyjzdhvi1borvfWV3DB4z2OFm.jpg",
+        "https://image.tmdb.org/t/p/w1280/tXHgyJQ26p6FsqeK0a8Ava8imEb.jpg",
+        "https://image.tmdb.org/t/p/w1280/fUOtxCuDU86JRWxVRqXOyyj386n.jpg"
+      ]
+    },
     {
       "id": "letterboxd-review-1560046069",
       "author": "hejrafa",
