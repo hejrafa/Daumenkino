@@ -28,7 +28,7 @@ The [podcast archive](https://podcasts.apple.com/de/podcast/daumenkino/id1476457
 - **German and English.** Switch the website’s language at any time. Our original review wording stays as written.
 - **Room to read.** Keyboard navigation, screen-reader labels, and reduced-motion support help keep the site usable. Hover previews stay still on touch devices and when reduced motion is enabled.
 
-We publish our reviews on Letterboxd, and the website picks up new reviews automatically, approximately **every six hours**. Film backdrops come from [TMDB](https://www.themoviedb.org/); films without additional stills keep a static image.
+We publish our reviews on Letterboxd, and the website picks up new reviews automatically, approximately **every six hours**, and posts them to our [Instagram](https://www.instagram.com/daumenkino.fm/) feed in the same design. Film backdrops come from [TMDB](https://www.themoviedb.org/); films without additional stills keep a static image.
 
 ## Find us
 

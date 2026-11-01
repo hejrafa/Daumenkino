@@ -1,6 +1,7 @@
 // Turns a review card into a 1080×1920 story image: shared on phones, downloaded on desktops.
+// The Instagram job draws the same card as a 1080×1350 feed post.
 (() => {
-  const W = 1080, H = 1920, SIDE = 90;
+  const W = 1080, H = 1920, POST_H = 1350, SIDE = 90;
   const ink = '#171916', paper = '#f5f3c5', yellow = '#f5f1a2';
   const display = 'Barlow, Impact, "Arial Narrow", sans-serif', body = 'DM, Arial, sans-serif';
 
@@ -41,30 +42,33 @@
     ctx.restore();
   }
 
-  async function render(card) {
+  function png(canvas) { return new Promise(resolve => canvas.toBlob(resolve, 'image/png')); }
+
+  async function render(card, h = H) {
     await Promise.all([document.fonts.load(`700 100px ${display}`), document.fonts.load(`400 30px ${body}`)]);
     const canvas = document.createElement('canvas');
-    canvas.width = W; canvas.height = H;
+    canvas.width = W; canvas.height = h;
     const ctx = canvas.getContext('2d');
-    ctx.fillStyle = ink; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = ink; ctx.fillRect(0, 0, W, h);
 
     // A separate URL keeps this CORS request from reusing the page's non-CORS cached copy.
     const cover = card.querySelector('.film-still');
     const still = /^https:\/\/image\.tmdb\.org\//.test(cover.src) ? await loadImage(cover.src + '?share') : null;
     if (still) {
-      const scale = Math.max(W / still.naturalWidth, H / still.naturalHeight);
-      const w = still.naturalWidth * scale, h = still.naturalHeight * scale;
-      ctx.drawImage(still, (W - w) / 2, (H - h) / 2, w, h);
+      const scale = Math.max(W / still.naturalWidth, h / still.naturalHeight);
+      const iw = still.naturalWidth * scale, ih = still.naturalHeight * scale;
+      ctx.drawImage(still, (W - iw) / 2, (h - ih) / 2, iw, ih);
     }
-    const shade = ctx.createLinearGradient(0, 0, 0, H);
+    const shade = ctx.createLinearGradient(0, 0, 0, h);
     shade.addColorStop(0, 'rgba(9,15,12,.72)');
     shade.addColorStop(.4, 'rgba(8,12,9,.6)');
     shade.addColorStop(1, 'rgba(6,10,8,.92)');
-    ctx.fillStyle = shade; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = shade; ctx.fillRect(0, 0, W, h);
 
     // Same layout as the card on the site: reviewer and rating on top, quote centred,
     // film at the bottom, with the wordmark where the card's buttons sit.
-    const TOP = 190, BOTTOM = 1750;
+    // Stories keep clear of Instagram's bars at the top and bottom; feed posts only need a margin.
+    const [TOP, BOTTOM] = h === H ? [190, 1750] : [130, h - 120];
     ctx.textBaseline = 'alphabetic';
     ctx.fillStyle = paper;
     ctx.font = `400 34px ${body}`; spacing(ctx, '3px');
@@ -116,8 +120,7 @@
     ctx.textAlign = 'left';
     const last = lines[lines.length - 1];
     ctx.fillText('”', W / 2 + ctx.measureText(last).width / 2, top + (lines.length - 1) * lineHeight);
-
-    return new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+    return canvas;
   }
 
   function poster(ctx, image, title, x, y, w, h) {
@@ -187,7 +190,7 @@
         ctx.fillText(film.rating, x + w, y + h + 40);
       }
     });
-    return new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+    return canvas;
   }
 
   async function share(button, draw, name) {
@@ -215,11 +218,14 @@
   document.querySelectorAll('.share-card').forEach(button => {
     const card = button.closest('.review-card');
     button.hidden = false;
-    button.addEventListener('click', () => share(button, () => render(card), card.querySelector('h3').textContent.trim()));
+    button.addEventListener('click', () => share(button, () => render(card).then(png), card.querySelector('h3').textContent.trim()));
   });
   document.querySelectorAll('.top20-story').forEach(button => {
     const section = button.closest('.top20-year');
     button.hidden = false;
-    button.addEventListener('click', () => share(button, () => renderList(section), `top-20-${section.dataset.year}`));
+    button.addEventListener('click', () => share(button, () => renderList(section).then(png), `top-20-${section.dataset.year}`));
   });
+
+  // scripts/instagram.py calls this in a headless browser to draw a review card as a JPEG feed post.
+  window.daumenkinoPost = async id => (await render(document.getElementById(id), POST_H)).toDataURL('image/jpeg', .92);
 })();

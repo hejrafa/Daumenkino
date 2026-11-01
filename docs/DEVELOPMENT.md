@@ -52,6 +52,29 @@ On mouse hover, review cards play one short flipbook sequence using up to four d
 
 TMDB documentation: https://developer.themoviedb.org/docs/getting-started and https://developer.themoviedb.org/docs/image-basics. Film images belong to their respective rights holders. Fonts are self-hosted with their SIL Open Font Licenses in `assets/fonts/`.
 
+## Instagram posts
+
+Once set up, the workflow posts each new review to [@daumenkino.fm](https://www.instagram.com/daumenkino.fm/) as a feed post: a 1080×1350 image in the share-image design, with the whole review, the Letterboxd link and two hashtags as the caption, and the quote as alt text. Spoiler-marked reviews and ratings without text are not posted.
+
+After the site build, `scripts/instagram.py prepare` compares the reviews with `data/instagram.json`, the record of what has been posted, and `draw` opens the built page in headless Chrome and has `share.js` draw each new review into `dist/instagram/`. The images deploy with the site, because Meta fetches images from a public URL. The `instagram` job then hands Meta each image and caption and records the post in `data/instagram.json`. Up to three reviews go out per run, oldest first; any others follow on the next run. The first run only records the reviews already there, so the back catalogue isn't posted.
+
+Setup:
+
+1. @daumenkino.fm must be a professional (Business or Creator) Instagram account.
+2. At [Meta for Developers](https://developers.facebook.com/apps/), create an app with the Instagram product, set up the API with Instagram login, and give it the `instagram_business_basic` and `instagram_business_content_publish` permissions. Add the account and generate an access token. The app only posts to an account that has a role on it, so it shouldn't need Meta's App Review.
+3. Save the token as the repository secret `INSTAGRAM_TOKEN`. Without it, the Instagram steps are skipped.
+4. Recommended: create a fine-grained personal access token for this repository with **Secrets: Read and write** and save it as `SECRETS_TOKEN`. Instagram tokens expire after 60 days unless renewed. The job renews the token weekly, and if Meta hands out a new one, it needs this to save it. Without it, the workflow shows a warning and `INSTAGRAM_TOKEN` must be replaced by hand.
+
+To check the layout locally (uses the installed Google Chrome):
+
+```sh
+python3 scripts/build.py
+pip install playwright
+python3 scripts/instagram.py preview   # Draws the three latest reviews into dist/instagram/ and prints their captions
+```
+
+To post a review again, delete its entry from `data/instagram.json`; to never post one, add it with `null`. Edits made on Letterboxd after a review was posted don't reach Instagram. Meta allows 100 posts a day through its API.
+
 ## Custom domain: daumenkino.fm
 
 The website’s custom domain is **daumenkino.fm**. Hosting uses GitHub Pages with GitHub Actions. All asset links are relative and also support the repository’s default Pages path. The following steps document the domain setup; DNS verification and certificate status are managed in GitHub Pages settings.
@@ -75,9 +98,10 @@ The header links German (`/`) and English (`/en/`) versions. Each is fully rende
 - `app.js`: author filters, progressive review loading.
 - `flipbook.js`: on-demand hover previews with motion and loading safeguards.
 - `top20.html`, `top20.js`: the Top 20 page template and its year switcher.
-- `share.js`: renders a review card as a 1080×1920 story image in the browser (share sheet on phones, download on desktops).
+- `share.js`: renders a review card as a 1080×1920 story image in the browser (share sheet on phones, download on desktops), and as a 1080×1350 feed post for Instagram.
 - CSS and JS links get a content-hash `?v=` at build time, so deploys never mix new HTML with cached old files.
 - `scripts/sync.py`: RSS import and image enrichment, server-side only.
+- `scripts/instagram.py`: picks, draws and posts new reviews to Instagram (see [Instagram posts](#instagram-posts)).
 - `scripts/build.py`: safely escaped static rendering.
 - `scripts/lists.py`: local Top 20 import from Letterboxd list pages.
 - `data/letterboxd.json`: committed source snapshot and growing review archive.
