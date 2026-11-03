@@ -1,14 +1,60 @@
 {
-  "updated": "2026-11-02T15:54:13.851789+00:00",
+  "updated": "2026-11-03T00:58:46.408768+00:00",
   "feeds": {
     "hejrafa": {
-      "updated": "2026-11-02T15:54:13.712108+00:00"
+      "updated": "2026-11-03T00:58:46.204725+00:00"
     },
     "annso": {
-      "updated": "2026-11-02T15:54:13.846922+00:00"
+      "updated": "2026-11-03T00:58:46.367258+00:00"
     }
   },
   "entries": [
+    {
+      "id": "letterboxd-review-1569662136",
+      "author": "hejrafa",
+      "name": "Rafael",
+      "title": "Wildwood",
+      "year": "2026",
+      "url": "https://letterboxd.com/hejrafa/film/wildwood-2026/",
+      "date": "2026-11-02",
+      "published": "2026-11-03T11:16:54+13:00",
+      "rating": 4.0,
+      "review": "Stop motion is to animation what film is to photography: slower, harder, and worth it.",
+      "spoiler": false,
+      "poster": "https://a.ltrbxd.com/resized/film-poster/7/0/9/4/6/0/709460-wildwood-2026-0-600-0-900-crop.jpg?v=e0b4be5769",
+      "tmdbId": "791523",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/sl5NJ1vtyhP9Vr88bB4blULsJYp.jpg",
+      "imageSource": "TMDB",
+      "backdrops": [
+        "https://image.tmdb.org/t/p/w1280/nfxw1zpFVASVt4ZVZubjQ2R9lJ.jpg",
+        "https://image.tmdb.org/t/p/w1280/7S9zJTVtK3dvhChTO1MDVu4bmBu.jpg",
+        "https://image.tmdb.org/t/p/w1280/vLsUQtNYhc7WmdvXuKZ4QWo272Q.jpg",
+        "https://image.tmdb.org/t/p/w1280/rVjVuYiHAjftgr19i5Bzy6nzJwW.jpg"
+      ]
+    },
+    {
+      "id": "letterboxd-review-1569631506",
+      "author": "annso",
+      "name": "Ann-Sophie",
+      "title": "Wildwood",
+      "year": "2026",
+      "url": "https://letterboxd.com/annso/film/wildwood-2026/",
+      "date": "2026-11-02",
+      "published": "2026-11-03T10:59:31+13:00",
+      "rating": 5,
+      "review": "Talking to trees? Hippies.",
+      "spoiler": false,
+      "poster": "https://a.ltrbxd.com/resized/film-poster/7/0/9/4/6/0/709460-wildwood-2026-0-600-0-900-crop.jpg?v=e0b4be5769",
+      "tmdbId": "791523",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/sl5NJ1vtyhP9Vr88bB4blULsJYp.jpg",
+      "imageSource": "TMDB",
+      "backdrops": [
+        "https://image.tmdb.org/t/p/w1280/nfxw1zpFVASVt4ZVZubjQ2R9lJ.jpg",
+        "https://image.tmdb.org/t/p/w1280/7S9zJTVtK3dvhChTO1MDVu4bmBu.jpg",
+        "https://image.tmdb.org/t/p/w1280/vLsUQtNYhc7WmdvXuKZ4QWo272Q.jpg",
+        "https://image.tmdb.org/t/p/w1280/rVjVuYiHAjftgr19i5Bzy6nzJwW.jpg"
+      ]
+    },
     {
       "id": "letterboxd-review-1567448257",
       "author": "hejrafa",
