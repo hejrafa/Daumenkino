@@ -1,14 +1,37 @@
 {
-  "updated": "2026-11-11T06:22:24.179956+00:00",
+  "updated": "2026-11-11T19:36:30.536384+00:00",
   "feeds": {
     "hejrafa": {
-      "updated": "2026-11-11T06:22:24.034285+00:00"
+      "updated": "2026-11-11T19:36:30.124121+00:00"
     },
     "annso": {
-      "updated": "2026-11-11T06:22:24.177252+00:00"
+      "updated": "2026-11-11T19:36:30.276104+00:00"
     }
   },
   "entries": [
+    {
+      "id": "letterboxd-review-1582257454",
+      "author": "annso",
+      "name": "Ann-Sophie",
+      "title": "Wild Horse Nine",
+      "year": "2026",
+      "url": "https://letterboxd.com/annso/film/wild-horse-nine/",
+      "date": "2026-11-09",
+      "published": "2026-11-12T05:54:00+13:00",
+      "rating": 4.0,
+      "review": "Pretty good horse poem for a first try.",
+      "spoiler": false,
+      "poster": "https://a.ltrbxd.com/resized/film-poster/8/0/2/6/3/2/802632-wild-horse-nine-0-600-0-900-crop.jpg?v=eade7a541c",
+      "tmdbId": "891621",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/3uLA0ujne91bkzFStZICCYeqhnt.jpg",
+      "imageSource": "TMDB",
+      "backdrops": [
+        "https://image.tmdb.org/t/p/w1280/1bf7dbeoTLNFFwk35bmzvgB6knZ.jpg",
+        "https://image.tmdb.org/t/p/w1280/phYik8dKyN85d2iB2K3CphCsugL.jpg",
+        "https://image.tmdb.org/t/p/w1280/b17UWf3LqHgKolQkXckne32qv0.jpg",
+        "https://image.tmdb.org/t/p/w1280/1SpBo9uZ68nMEKbOxEHTf1tIc6d.jpg"
+      ]
+    },
     {
       "id": "letterboxd-review-1579916781",
       "author": "hejrafa",
