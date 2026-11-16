@@ -1,14 +1,54 @@
 {
-  "updated": "2026-11-16T06:30:50.666742+00:00",
+  "updated": "2026-11-16T22:03:01.266494+00:00",
   "feeds": {
     "hejrafa": {
-      "updated": "2026-11-16T06:30:50.527190+00:00"
+      "updated": "2026-11-16T22:03:00.694083+00:00"
     },
     "annso": {
-      "updated": "2026-11-16T06:30:50.663187+00:00"
+      "updated": "2026-11-16T22:03:01.034072+00:00"
     }
   },
   "entries": [
+    {
+      "id": "letterboxd-review-1590085844",
+      "author": "hejrafa",
+      "name": "Rafael",
+      "title": "The Only Living Pickpocket in New York",
+      "year": "2026",
+      "url": "https://letterboxd.com/hejrafa/film/the-only-living-pickpocket-in-new-york/",
+      "date": "2026-11-16",
+      "published": "2026-11-17T10:33:37+13:00",
+      "rating": 2.5,
+      "review": "The Mafia isn't what it used to be.",
+      "spoiler": false,
+      "poster": "https://a.ltrbxd.com/resized/sm/upload/0e/eb/nv/t8/pick-0-600-0-900-crop.jpg?v=e4ffe8cc42",
+      "tmdbId": "1458099",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/oahXjJ0UxnkJthITntGMrXVXQsJ.jpg",
+      "imageSource": "TMDB",
+      "backdrops": [
+        "https://image.tmdb.org/t/p/w1280/uyNEBMVB9cqE7VkACf3TicGAVrU.jpg",
+        "https://image.tmdb.org/t/p/w1280/uy3HaLZpdx529vjfRDMCA8IhUhE.jpg",
+        "https://image.tmdb.org/t/p/w1280/tQTu9wgjbxd6p0jlpGua23sjAhx.jpg",
+        "https://image.tmdb.org/t/p/w1280/nZLt2sLZTEOyK50TjwNlGqzWsp5.jpg"
+      ]
+    },
+    {
+      "id": "letterboxd-watch-1590084903",
+      "author": "annso",
+      "name": "Ann-Sophie",
+      "title": "The Only Living Pickpocket in New York",
+      "year": "2026",
+      "url": "https://letterboxd.com/annso/film/the-only-living-pickpocket-in-new-york/",
+      "date": "2026-11-16",
+      "published": "2026-11-17T10:32:59+13:00",
+      "rating": 3.0,
+      "review": "",
+      "spoiler": false,
+      "poster": "https://a.ltrbxd.com/resized/sm/upload/0e/eb/nv/t8/pick-0-600-0-900-crop.jpg?v=e4ffe8cc42",
+      "tmdbId": "1458099",
+      "backdrop": "",
+      "imageSource": ""
+    },
     {
       "id": "letterboxd-review-1582257454",
       "author": "annso",
