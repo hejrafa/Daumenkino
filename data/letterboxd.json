@@ -1,14 +1,31 @@
 {
-  "updated": "2026-11-24T09:54:57.268259+00:00",
+  "updated": "2026-11-24T22:27:11.408338+00:00",
   "feeds": {
     "hejrafa": {
-      "updated": "2026-11-24T09:54:57.121708+00:00"
+      "updated": "2026-11-24T22:27:11.269753+00:00"
     },
     "annso": {
-      "updated": "2026-11-24T09:54:57.261359+00:00"
+      "updated": "2026-11-24T22:27:11.404043+00:00"
     }
   },
   "entries": [
+    {
+      "id": "letterboxd-watch-1600817483",
+      "author": "annso",
+      "name": "Ann-Sophie",
+      "title": "I Play Rocky",
+      "year": "2026",
+      "url": "https://letterboxd.com/annso/film/i-play-rocky/",
+      "date": "2026-11-23",
+      "published": "2026-11-24T23:15:39+13:00",
+      "rating": 4.0,
+      "review": "",
+      "spoiler": false,
+      "poster": "https://a.ltrbxd.com/resized/film-poster/1/1/7/0/2/2/8/1170228-i-play-rocky-0-600-0-900-crop.jpg?v=d568ec1f72",
+      "tmdbId": "1286656",
+      "backdrop": "",
+      "imageSource": ""
+    },
     {
       "id": "letterboxd-review-1600159097",
       "author": "hejrafa",
