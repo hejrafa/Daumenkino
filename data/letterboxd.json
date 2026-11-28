@@ -1,14 +1,31 @@
 {
-  "updated": "2026-11-27T21:17:12.688036+00:00",
+  "updated": "2026-11-28T07:49:53.080690+00:00",
   "feeds": {
     "hejrafa": {
-      "updated": "2026-11-27T21:17:12.200800+00:00"
+      "updated": "2026-11-28T07:49:52.721513+00:00"
     },
     "annso": {
-      "updated": "2026-11-27T21:17:12.368145+00:00"
+      "updated": "2026-11-28T07:49:53.077205+00:00"
     }
   },
   "entries": [
+    {
+      "id": "letterboxd-watch-1605358999",
+      "author": "annso",
+      "name": "Ann-Sophie",
+      "title": "Super Happy Forever",
+      "year": "2024",
+      "url": "https://letterboxd.com/annso/film/super-happy-forever/",
+      "date": "2026-11-27",
+      "published": "2026-11-28T10:27:16+13:00",
+      "rating": 3.5,
+      "review": "",
+      "spoiler": false,
+      "poster": "https://a.ltrbxd.com/resized/film-poster/1/1/7/7/7/0/4/1177704-super-happy-forever-0-600-0-900-crop.jpg?v=0171aea2eb",
+      "tmdbId": "1295035",
+      "backdrop": "",
+      "imageSource": ""
+    },
     {
       "id": "letterboxd-review-1605138569",
       "author": "hejrafa",
